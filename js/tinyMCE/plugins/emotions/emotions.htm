@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Emotions</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="js/emotions.js"></script>
+	<script type="text/javascript">
+	function generate_emotion(){
+		arrEmotions	= Array ("yahoo_smiley.gif",
+									"yahoo_sad.gif",
+									"yahoo_wink.gif",
+									"yahoo_bigsmile.gif",
+									"yahoo_batting.gif",
+									"yahoo_huggs.gif",
+									"yahoo_question.gif",
+									"yahoo_love.gif",
+									"yahoo_blush.gif",
+									"yahoo_tongue.gif",
+									"yahoo_kiss.gif",
+									"yahoo_brokenheart.gif",
+									"yahoo_ooooh.gif",
+									"yahoo_angry.gif",
+									"yahoo_mean.gif",
+									"yahoo_sunglas.gif",
+									"yahoo_worried.gif",
+									"yahoo_sweating.gif",
+									"yahoo_devil.gif",
+									"yahoo_cry.gif",
+									"yahoo_laughloud.gif",
+									"yahoo_neutral.gif",
+									"yahoo_eyebrow.gif",
+									"yahoo_rotfl.gif",
+									"yahoo_angel.gif",
+									"yahoo_glasses.gif",
+									"yahoo_bye.gif",
+									"yahoo_sleep.gif",
+									"yahoo_eyeroll.gif",
+									"yahoo_loser.gif",
+									"yahoo_sick.gif",
+									"yahoo_shhhh.gif",
+									"yahoo_silent.gif",
+									"yahoo_clown.gif",
+									"yahoo_silly.gif",
+									"yahoo_party.gif",
+									"yahoo_tired.gif",
+									"yahoo_drool.gif",
+									"yahoo_think.gif",
+									"yahoo_doh.gif",
+									"yahoo_clap.gif",
+									"yahoo_nailbiting.gif",
+									"yahoo_hypnotized.gif",
+									"yahoo_liar.gif",
+									"yahoo_waiting.gif",
+									"yahoo_sighing.gif",
+									"yahoo_madtongue.gif",
+									"yahoo_cowboy.gif",
+									"yahoo_onphone.gif",
+									"yahoo_callme.gif",
+									"yahoo_witsend.gif",
+									"yahoo_wave.gif",
+									"yahoo_timeout.gif",
+									"yahoo_daydream.gif",
+									"yahoo_pig.gif",
+									"yahoo_cow.gif",
+									"yahoo_monkey.gif",
+									"yahoo_chicken.gif",
+									"yahoo_flower.gif",
+									"yahoo_shamrock.gif",
+									"yahoo_flag.gif",
+									"yahoo_pumpkin.gif",
+									"yahoo_coffee.gif",
+									"yahoo_idea.gif",
+									"yahoo_ghost.gif",
+									"yahoo_alien.gif",
+									"yahoo_alien2.gif",
+									"yahoo_frustrated.gif",
+									"yahoo_pray.gif",
+									"yahoo_moneyeyes.gif",
+									"yahoo_whistling.gif",
+									"yahoo_beatup.gif",
+									"yahoo_peace.gif",
+									"yahoo_shame.gif",
+									"yahoo_dance.gif",
+									"yahoo_waving.gif",
+									"yahoo_giggle.gif",
+									"yahoo_malefighter1.gif",
+									"yahoo_malefighter2.gif",
+									"yahoo_femalefighter.gif",
+									"yahoo_yingyang.gif",
+									"yahoo_talktohand.gif",
+									"yahoo_worship.gif",
+									"yahoo_youkiddingme.gif",
+									"yahoo_star.gif",
+									"yahoo_dontknow.gif",
+									"yahoo_notlistening.gif",
+									"yahoo_dance_hiphop.gif"
+									);
+		document.write('<table border="0" cellspacing="0" cellpadding="4">');
+		stt		= 0;
+		num_col	= 8;
+		go_next	= (arrEmotions[stt] != undefined) ? 1 : 0;
+		while(go_next == 1){
+			document.write('<tr>');
+			for(i=0; i<num_col; i++){
+				document.write('<td align="center">');
+				if(go_next == 1){
+					document.write('<a href="javascript:EmotionsDialog.insert(\'' + arrEmotions[stt] + '\',\'\');"><img border="0" src="/images/wys/' + arrEmotions[stt] + '" /></a>');
+				}
+				stt++;
+				go_next	= (arrEmotions[stt] != undefined) ? 1 : 0;
+				document.write('</td>');
+			}
+			document.write('</tr>');
+		}
+		document.write('</table>');
+	}
+	</script>
+</head>
+<body style="display:none; margin:0px; padding:0px">
+	<div align="center"><script type="text/javascript">generate_emotion()</script></div>
+</body>
+</html>

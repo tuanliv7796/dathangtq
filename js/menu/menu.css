@@ -1,0 +1,214 @@
+/* CSS Document */
+#jsddm
+{	margin: 0;
+	padding: 0;
+	text-align:left;
+}
+
+#jsddm li
+{
+	float: left;
+	list-style: none;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	height:30px;
+	overflow:hidden;
+}
+
+#jsddm li a
+{	display: block;
+	text-decoration: none;
+	color: #333333;
+	white-space: nowrap;	
+	height: 30px;
+	line-height: 30px;
+}
+
+#jsddm li a .mnu_l
+{
+	width: 10px;
+	height: 30px;
+	float: left;
+	display: block;
+}
+#jsddm li a:hover .mnu_l
+{
+	background: url("../../images/mnucity_over_1.gif") no-repeat center left;
+}
+#jsddm li a .mnu_c
+{
+	height: 30px;
+	float: left;
+	display: block;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#jsddm li a:hover .mnu_c
+{
+	background: url("../../images/mnucity_over_2.gif") repeat-x;
+}
+#jsddm li a .mnu_r
+{
+	width: 10px;
+	height: 30px;
+	float: left;
+	display: block;
+}
+#jsddm li a:hover .mnu_r
+{
+	background: url("../../images/mnucity_over_3.gif") no-repeat center right;
+}
+
+#jsddm li a:hover
+{
+}
+	
+#jsddm li ul
+{	margin: 0;
+	padding: 0;
+	position: absolute;
+	visibility: hidden;
+	border-top: 0px solid white;
+	margin-left: 18px;
+}
+
+#jsddm li ul li
+{	float: none;
+	display: inline;
+	height: 20px;
+}
+
+#jsddm li ul li a
+{	width: auto;
+	color:#333333;
+	height: 20px;
+	line-height: 20px;
+}
+
+#jsddm li ul li a:hover
+{
+}
+
+/*Tab menu*/
+/* CSS Document */
+#tab_menu
+{	margin: 0;
+	padding: 0;
+	text-align:left;
+}
+
+#tab_menu li
+{
+	float: left;
+	list-style: none;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	height:30px;
+	overflow:hidden;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#tab_menu li a
+{	display: block;
+	text-decoration: none;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	white-space: nowrap;	
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+}
+
+#tab_menu li a .tab_mnu_l
+{
+	width: 7px;
+	height: 30px;
+	float: left;
+	display: block;
+}
+#tab_menu li a .tab_mnu_l_curent
+{
+	width: 7px;
+	height: 30px;
+	float: left;
+	display: block;
+	background: url("../../images/tab_menu_l.gif") no-repeat center left;
+}
+#tab_menu li a:hover .tab_mnu_l
+{
+	background: url("../../images/tab_menu_l.gif") no-repeat center left;
+}
+#tab_menu li a .tab_mnu_c
+{
+	min-width: 74px;
+	height: 30px;
+	float: left;
+	text-align: center;
+}
+#tab_menu li a .tab_mnu_c_curent
+{	
+	min-width: 74px;
+	height: 30px;
+	float: left;
+	text-align: center;
+	background: url("../../images/tab_menu_c.gif") repeat-x;
+	color: #00adef;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+#tab_menu li a:hover .tab_mnu_c
+{
+	background: url("../../images/tab_menu_c.gif") repeat-x;
+}
+#tab_menu li a .tab_mnu_r
+{
+	width: 7px;
+	height: 30px;
+	float: left;
+	display: block;
+}
+#tab_menu li a .tab_mnu_r_curent
+{
+	width: 7px;
+	height: 30px;
+	float: left;
+	display: block;
+	background: url("../../images/tab_menu_r.gif") no-repeat center right;
+}
+#tab_menu li a:hover .tab_mnu_r
+{
+	background: url("../../images/tab_menu_r.gif") no-repeat center right;
+}
+
+#tab_menu li a:hover
+{
+	color: #00adef;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+	
+#tab_menu li ul
+{	margin: 0;
+	padding: 0;
+	position: absolute;
+	visibility: hidden;
+	border-top: 0px solid white;
+	margin-left: 18px;
+}
+
+#tab_menu li ul li
+{	float: none;
+	display: inline;
+	height: 20px;
+}
+
+#tab_menu li ul li a
+{	width: auto;
+	height: 20px;
+	line-height: 20px;
+}
+
+#tab_menu li ul li a:hover
+{
+}
+
+
