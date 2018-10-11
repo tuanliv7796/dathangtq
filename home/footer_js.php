@@ -13,10 +13,6 @@
         setActiveMenu(window.location.pathname);
     });
 
-    function LoadSelect() {
-        $(".select2").select2({});
-        setActive();
-    }
 
     function setActive() {
         $('body').addClass('child-page');
@@ -74,6 +70,10 @@
             });
         }
     });
+
+
+    $('.prefix_number').select2();
+
 </script>
 <style>
     .dropdown-custom {

@@ -8,7 +8,7 @@
 <?include "top_body.php"?>
 
 <?include "../includes/inc_header.php"?>
-<?include "../includes/inc_home.php"?>
+<?include "../includes/inc_login.php"?>
 <?include "../includes/inc_footer.php"?>
 <?include "footer_js.php"?>
 

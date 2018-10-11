@@ -20,5 +20,23 @@ RewriteBase /
 #HOME
 RewriteRule ^gioi-thieu$ /home/about.php [L]
 
+#gioithieu
+RewriteRule ^gioi-thieu-4/ve-chung-toi-12$ /home/about.php [L]
+
+#congcu
+RewriteRule ^cong-cu$ /home/tool.php [L]
+
+#quick-order
+RewriteRule ^dat-hang-nhanh$ /home/quick_order.php [L]
+
+#login
+RewriteRule ^dang-nhap$ /home/login.php [L]
+
+#register
+RewriteRule ^dang-ky$ /home/register.php [L]
+
+#logout
+RewriteRule ^dang-xuat$ /home/logout.php [L]
+
 #HOME
 RewriteRule ^([^/]*)$ /home/index.php [L]

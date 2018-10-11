@@ -4,7 +4,7 @@
             <div class="inner">
                 <div class="logo">
                     <a href="#">
-                        <img src="/images/logo-footer.png" alt=""></a>
+                        <img src="./images/logo-footer.png" alt=""></a>
                 </div>
                 <div class="ft-widgets">
                     <div class="widget div5">
