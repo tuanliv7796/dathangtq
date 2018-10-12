@@ -1,5 +1,3 @@
-<? session_start(); ?>
-
 <header id="header">
     <div class="top-hd">
         <div class="all full-width-no-limit">
