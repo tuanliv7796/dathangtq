@@ -18,13 +18,19 @@ RewriteBase /
 
 
 #HOME
-RewriteRule ^gioi-thieu$ /home/about.php [L]
+RewriteRule ^trang-chu$ /home.php [L]
 
 #gioithieu
-RewriteRule ^gioi-thieu-4/ve-chung-toi-12$ /home/about.php [L]
+RewriteRule ^gioi-thieu$ /home/about.php [L]
 
 #congcu
 RewriteRule ^cong-cu$ /home/tool.php [L]
+
+#chinhsach
+RewriteRule ^chinh-sach$ /home/policy.php [L]
+
+#bieuphi
+RewriteRule ^bieu-phi-hang-order$ /home/cost.php [L]
 
 #quick-order
 RewriteRule ^dat-hang-nhanh$ /home/quick_order.php [L]
@@ -37,6 +43,12 @@ RewriteRule ^dang-ky$ /home/register.php [L]
 
 #logout
 RewriteRule ^dang-xuat$ /home/logout.php [L]
+
+#profile
+RewriteRule ^thong-tin-nguoi-dung$ /home/profile.php [L]
+
+#profile
+RewriteRule ^huong-dan-dat-hang$ /home/guide.php [L]
 
 #HOME
 RewriteRule ^([^/]*)$ /home/index.php [L]

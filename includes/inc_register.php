@@ -1,34 +1,44 @@
 <? 
 
 require_once("../classes/database.php");
+require_once("../functions/functions.php");
 
-if(isset($_POST['submit'])) {
+if(isset($_SESSION['email'])) {
 
-    $last_name = $_POST['last_name'];
-    $first_name = $_POST['first_name'];
-    $phone = $_POST['prefix_phone'] . $_POST['phone'];
-    $email = $_POST['email'];
-    $user_name = $_POST['user_name'];
-    $password = $_POST['password'];
-    $re_password = $_POST['re_password'];
+    redirect('/trang-chu');
 
-    if($password != $re_password) {
+} else {
 
-        $_SESSION["error"] = "Mật khẩu xác nhận không trùng khớp";
+    if(isset($_POST['submit'])) {
 
-    } else {
+        $last_name    = $_POST['last_name'];
+        $first_name   = $_POST['first_name'];
+        $prefix_phone = $_POST['prefix_phone'];
+        $phone        = $_POST['phone'];
+        $email        = $_POST['email'];
+        $user_name    = $_POST['user_name'];
+        $password     = $_POST['password'];
+        $re_password  = $_POST['re_password'];
 
-        $sql = sprintf("INSERT INTO user (last_name, first_name, phone, email, user_name, password)
-            VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
-            $last_name, $first_name, $phone, $email, $user_name, md5($password));
+        if($password != $re_password) {
 
-        if(new db_execute($sql)) {
-
-            $_SESSION["success"] = "Đăng ký thành công";
+            $_SESSION['message']["error"] = "Mật khẩu xác nhận không trùng khớp";
 
         } else {
 
-            $_SESSION["error"] = "Đăng ký thất bại";
+            $sql = sprintf("INSERT INTO user (last_name, first_name, prefix_phone, phone, email, user_name, password)
+                VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                $last_name, $first_name, $prefix_phone, $phone, $email, $user_name, md5($password));
+
+            if(new db_execute($sql)) {
+
+                $_SESSION['message']["success"] = "Đăng ký thành công";
+
+            } else {
+
+                $_SESSION['message']["error"] = "Đăng ký thất bại";
+
+            }
 
         }
 
@@ -37,7 +47,6 @@ if(isset($_POST['submit'])) {
 }
 
 ?>
-
 
 <main id="main-wrap">
     <div class="all">
@@ -56,7 +65,6 @@ if(isset($_POST['submit'])) {
                         <div class="form-row">
                             <div class="lb">Họ của bạn</div>
                             <input name="last_name" type="text" class="form-control has-validate" placeholder="Họ" required="">
-
                         </div>
                         <div class="form-row">
                             <div class="lb">Tên của bạn</div>
@@ -79,21 +87,14 @@ if(isset($_POST['submit'])) {
                         <div class="form-row">
                             <div class="lb">Email</div>
                             <input name="email" type="email" required="" class="form-control has-validate" placeholder="Email">
-
                         </div>
                         <div class="form-row">
                             <div class="lb">Tên đăng nhập / Nickname:</div>
                             <input name="user_name" type="text" required="" class="form-control has-validate" placeholder="Tên đăng nhập / Nickname">
-
                         </div>
                         <div class="form-row">
                             <div class="lb">Mật khẩu</div>
                             <input name="password" type="password" required="" class="form-control has-validate" placeholder="Mật khẩu đăng nhập">
-
-                        </div>
-                        <div class="form-row">
-                            <div class="lb">Xác nhận mật khẩu</div>
-                            <input name="re_password" type="password" class="form-control has-validate" placeholder="Xác nhận mật khẩu">
                         </div>
                         <div class="form-row btn-row">
                             <input type="submit" name="submit" value="Đăng ký" class="btn btn-success btn-block pill-btn primary-btn">

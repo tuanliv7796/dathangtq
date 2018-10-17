@@ -9,7 +9,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         new WOW().init();
-        LoadSelect();
+
         setActiveMenu(window.location.pathname);
     });
 

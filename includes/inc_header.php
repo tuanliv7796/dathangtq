@@ -101,6 +101,17 @@
         </div>
     </div>
 </header>
+
+<?
+
+function PageName() {
+    return substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
+}
+
+$current_page = PageName();
+
+?>
+
 <nav class="" id="main-nav">
     <div class="all">
         <div class="main">
@@ -108,15 +119,14 @@
                 <a class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span
                         class="icon-bar"></span></a>
                 <ul class="main-nav nav-ul">
-                    <li class="trangchu"><a href="/trang-chu">TRANG CHỦ</a></li>
-                    <li class="gioithieu"><a href="/gioi-thieu-4/ve-chung-toi-12">GIỚI THIỆU</a></li>
-                    <li class="huongdan"><a href="/huong-dan-3/huong-dan-dat-hang-13">HƯỚNG DẪN</a></li>
-                    <li class="bieuphi"><a href="/bieu-phi-hang-order-1/chi-phi-mot-don-hang-5">BIỂU PHÍ</a></li>
-                    <li class="chinhsach"><a href="/chinh-sach-5/dieu-khoan--khieu-nai-15">CHÍNH SÁCH</a></li>
+                    <li class="trangchu <? echo $current_page == 'index.php' ? 'active': '' ?>"><a href="/trang-chu">TRANG CHỦ</a></li>
+                    <li class="gioithieu <? echo $current_page == 'about.php' ? 'active': '' ?>"><a href="/gioi-thieu">GIỚI THIỆU</a></li>
+                    <li class="huongdan <? echo $current_page == 'guide.php' ? 'active': '' ?>"><a href="/huong-dan-dat-hang">HƯỚNG DẪN</a></li>
+                    <li class="bieuphi <? echo $current_page == 'cost.php' ? 'active': '' ?>"><a href="/bieu-phi-hang-order">BIỂU PHÍ</a></li>
+                    <li class="chinhsach <? echo $current_page == 'policy.php' ? 'active': '' ?>"><a href="/chinh-sach">CHÍNH SÁCH</a></li>
 
-
-                    <li class="congcudathang"><a href="/cong-cu">CÔNG CỤ ĐẶT HÀNG</a></li>
-                    <li class="dathangnhanh"><a href="/dat-hang-nhanh">ĐẶT HÀNG MOBILE</a></li>
+                    <li class="congcudathang <? echo $current_page == 'tool.php' ? 'active': '' ?>"><a href="/cong-cu">CÔNG CỤ ĐẶT HÀNG</a></li>
+                    <li class="dathangnhanh <? echo $current_page == 'quick_order.php' ? 'active': '' ?>"><a href="/dat-hang-nhanh">ĐẶT HÀNG MOBILE</a></li>
                 </ul>
                 <div class="right">
 

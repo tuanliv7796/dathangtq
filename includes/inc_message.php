@@ -1,9 +1,9 @@
-<? if(isset($_SESSION["success"])) { ?>
+<? if(isset($_SESSION['message']["success"])) { ?>
 
-<font color="green"><? echo $_SESSION["success"] ?></font>
+<font color="green"><? echo $_SESSION['message']["success"] ?></font>
 
-<? } elseif(isset($_SESSION["error"])) { ?>
+<? } elseif(isset($_SESSION['message']["error"])) { ?>
 
-<font color="red"><? echo $_SESSION["error"] ?></font>
+<font color="red"><? echo $_SESSION['message']["error"] ?></font>
 
 <? } ?>

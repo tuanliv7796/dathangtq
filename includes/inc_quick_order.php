@@ -1,3 +1,40 @@
+<?php
+
+require 'simple_html_dom.php';
+
+ini_set('default_charset', 'utf-8');
+
+if(isset($_POST['search'])) {
+
+    $url = $_POST['link'];
+
+    if($url != '') {
+
+        $html = file_get_html($url, false, null, 0);
+
+        $title = $html->find('.tb-main-title',0);
+
+        $title = mb_convert_encoding($title, 'UTF-8', 'GB2312');
+
+        $tb_rmb_num = $html->find('.tb-rmb-num',0);
+
+        $attributes_list = $html->find('.attributes-list',0);
+
+        $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');      
+
+        
+
+    } else {
+
+        echo 'Vui lòng nhập link';
+    }
+
+}
+
+
+?>
+
+
 <main id="main-wrap">
     <div class="sec">
         <div class="all">
@@ -5,7 +42,7 @@
                 <div class="sec-tt">
                     <h2 class="tt-txt">ĐẶT HÀNG BẰNG PASTE LINK</h2>
                     <p class="deco">
-                        <img src="/App_Themes/NHST/images/title-deco.png" alt="">
+                        <img src="./images/title-deco.png" alt="">
                     </p>
                 </div>
                 <div class="right50-cont">
@@ -21,7 +58,7 @@
                     </article>
                 </div>
                 <div class="left50-cont">
-                    <img src="/App_Themes/NHST/images/congcu-img1.png" alt="">
+                    <img src="./images/congcu-img1.png" alt="">
                 </div>
             </div>
             <div class="main">
@@ -29,23 +66,88 @@
                     <div class="sec-tt">
                         <h2 class="tt-txt text-italic">ĐẶT HÀNG NHANH</h2>
                         <p class="deco">
-                            <img src="/App_Themes/NHST/images/title-deco.png" alt="">
+                            <img src="./images/title-deco.png" alt="">
                         </p>
                     </div>
                     <div class="clear"></div>
                     <div id="ContentPlaceHolder1_upd">
+                        
+                        <form action="" method="post">
+                            <div class="form-search-product">
+                                <div class="form-search-left">
+                                    <input name="link" type="text" class="form-control txt-search-product" required="" placeholder="Nhập link sản phẩm: taobao, 1688, tmall.">
+                                    <div class="clear"></div>
+                                    <br>
+                                </div>
+                                <div class="form-search-right">
+                                    <input type="submit" name="search" value="Tìm thông tin sản phẩm" class="btn-search">
+                                </div>
+                            </div>
+                        </form>
+                
+                        <div id="ContentPlaceHolder1_pn_productview">
+                            <? if(isset($title)) { ?>
+                            <div class="product-view">
+                                <? if(isset($img)) { ?>
+                                <div class="pv-left">
+                                    
+                                </div>
+                                <? } ?>
 
-                        <div class="form-search-product">
-                            <div class="form-search-left">
-                                <input name="ctl00$ContentPlaceHolder1$txt_link" type="text" id="ContentPlaceHolder1_txt_link" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao, 1688, tmall.">
-                                <div class="clear"></div>
-                                <span id="ContentPlaceHolder1_rq1" class="error-validate" style="color:Red;visibility:hidden;">Không để trống link sản phẩm.</span>
+                                
+                                <div class="pv-right">
+                                    <div class="pv-att title">
+                                        <? echo isset($title) ? $title : '' ?>
+                                    </div>
+                                    <br>
+                                    <div class="pv-att price">
+
+                                        <? if(isset($tb_rmb_num)) { ?>
+
+                                            <span class="price-label">Giá Gốc:</span>
+                                            <span class="price-color cny">
+
+                                                ¥ <? echo isset($tb_rmb_num) ? $tb_rmb_num : '' ?>
+                                                    
+                                            </span>
+
+                                            <? 
+
+                                                $tb_rmb_num = (int) preg_replace("/[^0-9\.]/", "", $tb_rmb_num);
+
+                                                $vnd = $tb_rmb_num * 3560; 
+
+                                            ?> 
+
+                                        <? } ?>
+                                    </div>
+                                    <div class="pv-att price">
+                                        <? if(isset($vnd)) { ?>
+                                            <span class="price-label">Giá VNĐ:</span>
+                                            <span class="price-color vnd">
+                                                <? echo number_format($vnd); ?> vnđ
+                                            </span>
+                                        <? } ?>
+                                    </div>
+                                    <br>
+                                    <div class="pv-att">
+                                        <div id="attributes" class="attributes"><div id="J_Qualification"></div> 
+
+                                            <ul class="attributes-list"> 
+                                                <? echo isset($attributes_list) ? $attributes_list : '' ?>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="pv-att title">
+                                        
+                                    </div>
+                                </div>
+                                
                             </div>
-                            <div class="form-search-right">
-                                <input type="submit" name="ctl00$ContentPlaceHolder1$btn_search" value="Tìm thông tin sản phẩm" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentPlaceHolder1$btn_search&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ContentPlaceHolder1_btn_search" class="btn-search">
-                            </div>
+                            <? } ?>
                         </div>
-
 
                         <div class="clear"></div>
 
@@ -74,7 +176,7 @@
 
                         <div class="modal">
                             <div class="center">
-                                <img alt="" src="/App_Themes/NHST/loading.gif" width="80px">
+                                <img alt="" src="./images/loading.gif" width="80px">
                             </div>
                         </div>
 

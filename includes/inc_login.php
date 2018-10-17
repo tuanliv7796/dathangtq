@@ -3,28 +3,41 @@
 require_once("../classes/database.php");
 require_once("../functions/functions.php");
 
-if(isset($_POST['submit'])) {
+if(isset($_SESSION['email'])) {
 
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
+    redirect('/trang-chu');
 
-    $sql = sprintf("SELECT COUNT(*) FROM user WHERE user_name = '%s' OR email = '%s' AND password = '%s'", $email, $email, $password);
+} else {
 
-    $items = new db_query($sql);
+    if(isset($_POST['submit'])) {
 
-    if($items->result->num_rows > 0) {
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
 
-        $_SESSION['email'] = $email;
+        $sql = sprintf("SELECT id FROM user WHERE (user_name = '%s' OR email = '%s') AND password = '%s'", $email, $email, $password);
 
-        redirect('home');
+        $db_select = new db_query($sql);
 
-    } else {
+        while ($row = mysqli_fetch_assoc($db_select->result)) {
+            $id = $row['id'];
+        }
 
-        $_SESSION["error"] = "Đăng nhập thất bại";
+        if($db_select->result->num_rows > 0) {
+
+            $_SESSION['email'] = $email;
+            $_SESSION['id'] = $id;
+
+            redirect('/trang-chu');
+
+        } else {
+
+            $_SESSION['message']["error"] = "Đăng nhập thất bại";
+
+        }
 
     }
-
 }
+
 
 ?>
 

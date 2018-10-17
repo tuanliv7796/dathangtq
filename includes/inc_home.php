@@ -1,10 +1,11 @@
+
 <main id="main-wrap">
     <div class="sec panel-sec wow fadeIn" data-wow-duration=".5s" data-wow-delay="0s">
-        <img src="/images/home-panel.png" alt="" class="bg">
+        <img src="./images/home-panel.png" alt="" class="bg">
         <div class="inner">
             <div class="caption">
                 <p class="captlv1 wow fadeInDown" data-wow-duration="1s" data-wow-delay=".5s">
-                    <img src="/images/capt-txt.png" alt="">
+                    <img src="./images/capt-txt.png" alt="">
                 </p>
                 <p>
 
@@ -19,7 +20,7 @@
 
         </div>
         <div class="sec-decor" id="truck-decor">
-            <img src="/images/truck.png" alt="" class="">
+            <img src="./images/truck.png" alt="" class="">
         </div>
     </div>
     <div class="sec about-sec">
@@ -30,7 +31,7 @@
                 <div class="sec-tt wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
                     <h2 class="tt-txt">VỀ <span class="hl-txt">DỊCH VỤ</span></h2>
                     <p class="deco">
-                        <img src="/images/title-deco.png" alt="">
+                        <img src="./images/title-deco.png" alt="">
                     </p>
                 </div>
                 <div class="sec-spec">
@@ -40,7 +41,7 @@
                 <ul class="service-ul">
                     <li>
                         <div class="img wow bounceIn" data-wow-duration="1s" data-wow-delay="0s">
-                            <img src="/images/service-1.png" alt="">
+                            <img src="./images/service-1.png" alt="">
                         </div>
                         <div class="info wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
                             <div class="title"><strong>ĐẶT HÀNG, SHIP HÀNG QUỐC TẾ</strong></div>
@@ -49,7 +50,7 @@
                     </li>
                     <li>
                         <div class="img wow bounceIn" data-wow-duration="1s" data-wow-delay=".3s">
-                            <img src="/images/service-2.png" alt="">
+                            <img src="./images/service-2.png" alt="">
                         </div>
                         <div class="info wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
                             <div class="title"><strong>CHUYỂN HÀNG 2 CHIỀU TRUNG – VIỆT</strong></div>
@@ -59,7 +60,7 @@
                     </li>
                     <li>
                         <div class="img wow bounceIn" data-wow-duration="1s" data-wow-delay=".6s">
-                            <img src="/images/service-3.png" alt="">
+                            <img src="./images/service-3.png" alt="">
                         </div>
                         <div class="info wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s">
                             <div class="title"><strong>CHUYỂN TIỀN, NẠP TIỀN ALIPAY, WECHAT</strong></div>
@@ -69,7 +70,7 @@
                     </li>
                     <li>
                         <div class="img wow bounceIn" data-wow-duration="1s" data-wow-delay="0s">
-                            <img src="/images/service-4.png" alt="">
+                            <img src="./images/service-4.png" alt="">
                         </div>
                         <div class="info wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
                             <div class="title"><strong>HỖ TRỢ VÀ TƯ VẤN CHUYÊN NGHIỆP</strong></div>
@@ -78,7 +79,7 @@
                     </li>
                     <li>
                         <div class="img wow bounceIn" data-wow-duration="1s" data-wow-delay=".3s">
-                            <img src="/images/service-5.png" alt="">
+                            <img src="./images/service-5.png" alt="">
                         </div>
                         <div class="info wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
                             <div class="title"><strong>DỄ DÀNG QUẢN LÝ ĐƠN HÀNG</strong></div>
@@ -160,7 +161,7 @@
                             <div class="slider-item">
                                 <div class="inner">
                                     <div class="img">
-                                        <img src="/images/register-img/dang-ky.png" alt="">
+                                        <img src="./images/dang-ky.png" alt="">
                                     </div>
                                     <div class="info">
                                         <div class="title">ĐĂNG KÍ TÀI KHOẢN</div>
@@ -172,7 +173,7 @@
                             <div class="slider-item">
                                 <div class="inner">
                                     <div class="img">
-                                        <img src="/images/register-img/cai-dat.png" alt="">
+                                        <img src="./images/cai-dat.png" alt="">
                                     </div>
                                     <div class="info">
                                         <div class="title">Cài đặt công cụ mua hàng</div>
@@ -184,7 +185,7 @@
                             <div class="slider-item">
                                 <div class="inner">
                                     <div class="img">
-                                        <img src="/images/register-img/chon-hang.png" alt="">
+                                        <img src="./images/chon-hang.png" alt="">
                                     </div>
                                     <div class="info">
                                         <div class="title">Chọn hàng và thêm hàng vào giỏ</div>
@@ -196,7 +197,7 @@
                             <div class="slider-item">
                                 <div class="inner">
                                     <div class="img">
-                                        <img src="/images/register-img/gui-don-hang.png" alt="">
+                                        <img src="./images/gui-don-hang.png" alt="">
                                     </div>
                                     <div class="info">
                                         <div class="title">Gửi đơn hàng</div>
@@ -208,7 +209,7 @@
                             <div class="slider-item">
                                 <div class="inner">
                                     <div class="img">
-                                        <img src="/images/register-img/dat-coc.png" alt="">
+                                        <img src="./images/dat-coc.png" alt="">
                                     </div>
                                     <div class="info">
                                         <div class="title">Đặt cọc tiền hàng</div>
@@ -221,7 +222,7 @@
                             <div class="slider-item">
                                 <div class="inner">
                                     <div class="img">
-                                        <img src="/images/register-img/nhan-hang.png" alt="">
+                                        <img src="./images/nhan-hang.png" alt="">
                                     </div>
                                     <div class="info">
                                         <div class="title">Nhận hàng và thanh toán</div>

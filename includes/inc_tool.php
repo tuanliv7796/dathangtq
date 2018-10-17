@@ -5,11 +5,11 @@
                 <div class="sec-tt">
                     <h2 class="tt-txt">ĐẶT HÀNG BẰNG TIỆN ÍCH CHROME</h2>
                     <p class="deco">
-                        <img src="/App_Themes/NHST/images/title-deco.png" alt="">
+                        <img src="./images/title-deco.png" alt="">
                     </p>
                 </div>
                 <div class="left50-cont">
-                    <img src="/App_Themes/NHST/images/congcu-img.png" alt="">
+                    <img src="./images/congcu-img.png" alt="">
                 </div>
                 <div class="right50-cont">
                     <article>
