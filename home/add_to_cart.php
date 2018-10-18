@@ -1,7 +1,8 @@
 <?php 
 
-
 require_once("../classes/database.php");
+
+ini_set('default_charset', 'utf-8');
 
 $data = isset($_POST['data']) ? $_POST['data'] : false;
 
@@ -21,7 +22,7 @@ if($data && $user_id) {
 
 		$sql = sprintf("INSERT INTO order_detail (order_id, title_origin, image_origin, link_origin, price_origin, price_vnd, site, cate_id, comment)
 						VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-						$row['id'], 'basbs', $data['image'], $data['link'], $data['price'], preg_replace("/[^0-9\.]/", "", $data['price_vnd']), $data['site'], $data['cate'], $data['comment']);
+						$row['id'], $title, $data['image'], $data['link'], $data['price'], preg_replace("/[^0-9\.]/", "", $data['price_vnd']), $data['site'], $data['cate'], $data['comment']);
 
 		if(new db_execute($sql)) {
 

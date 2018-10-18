@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100133
+ Source Server Version : 100308
  Source Host           : localhost:3306
  Source Schema         : bluetour
 
  Target Server Type    : MySQL
- Target Server Version : 100133
+ Target Server Version : 100308
  File Encoding         : 65001
 
- Date: 12/10/2018 00:41:21
+ Date: 18/10/2018 15:13:28
 */
 
 SET NAMES utf8mb4;
@@ -194,6 +194,25 @@ INSERT INTO `booking_tours` VALUES (4, 'BLUETOUR124', 0, '20ac32f6f46f82a455c842
 INSERT INTO `booking_tours` VALUES (5, 'BLUETOUR125', 0, '935319caebd7dd3d7e5c487e96328404f9ddad88ff3d969be0c2feef36e5ff60', 3, 0, 'fs', '0', 'wsdfds', NULL, 0, 'sfsdfd', 3, 0, 1508371200, 3, NULL, 3700000000, 3000000000, 11100000000, 0, 0, 0, 11100000000, 0, '', 0, 0, '', 1508379647, 0, 0, NULL);
 INSERT INTO `booking_tours` VALUES (6, 'BLUETOUR126', 0, 'd35c1c6ea62c7f3a37516e2d5ba07813903a4cb7e92a8f808139950935583be0', 6, 0, 'Nguyen dieu linh', '1639218060', 'ngdlinh13@gmail.com', NULL, 0, '', 1, 0, 1510185600, 3, '', 10900000, 0, 10900000, 0, 0, 0, 10900000, 0, '', 0, 1, '', 1510219072, 1510219193, 0, NULL);
 INSERT INTO `booking_tours` VALUES (7, 'BLUETOUR127', 0, 'a08377e6f48bdbe9042a11a7d985e013d2fd2884ec8a6e2dc2924dac7fe7c1f8', 6, 0, 'Nguyễn Văn A', '1678008938', 'abc@gmail.com', NULL, 0, 'Không có yêu cầu khác', 1, 0, 1510272000, 3, NULL, 10900000, 0, 10900000, 0, 0, 0, 10900000, 0, '', 0, 0, '', 1510301417, 0, 0, NULL);
+
+-- ----------------------------
+-- Table structure for categories
+-- ----------------------------
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of categories
+-- ----------------------------
+INSERT INTO `categories` VALUES (1, 'Quần áo');
+INSERT INTO `categories` VALUES (2, 'Giày dép');
+INSERT INTO `categories` VALUES (3, 'Mỹ phẩm');
+INSERT INTO `categories` VALUES (4, 'Trang sức');
+INSERT INTO `categories` VALUES (5, 'Đồ điện tử');
 
 -- ----------------------------
 -- Table structure for categories_multi
@@ -734,6 +753,58 @@ CREATE TABLE `newsletter`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for order_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `order_detail`;
+CREATE TABLE `order_detail`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `item_id` double NOT NULL,
+  `title_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `title_translated` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `cate_id` int(11) DEFAULT NULL,
+  `image_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `link_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `location_sale` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price_origin` int(11) DEFAULT 0,
+  `price_promotion` int(11) DEFAULT 0,
+  `price_vnd` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0',
+  `property` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `property_translated` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `quantity` int(11) DEFAULT 0,
+  `site` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shop_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shop_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order_detail
+-- ----------------------------
+INSERT INTO `order_detail` VALUES (1, 1, 0, 'basbs', NULL, 4, '//gd1.alicdn.com/imgextra/i3/0/TB11ZMTGXXXXXXqXVXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5i1EUa9&scm=1007.15423.84311.100200300000005&id=42259298331&pvid=bbff0617-0005-4ffd-be70-566c8a5123ba', NULL, 158, 0, '562,480', NULL, NULL, 0, 'taobao.com', NULL, NULL, 'bbxcn');
+INSERT INTO `order_detail` VALUES (2, 2, 0, 'basbs', NULL, 4, '//gd1.alicdn.com/imgextra/i3/0/TB11ZMTGXXXXXXqXVXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5i1EUa9&scm=1007.15423.84311.100200300000005&id=42259298331&pvid=bbff0617-0005-4ffd-be70-566c8a5123ba', NULL, 158, 0, '562480', NULL, NULL, 0, 'taobao.com', NULL, NULL, 'bbxcn');
+INSERT INTO `order_detail` VALUES (3, 3, 0, 'basbs', NULL, 4, '//gd1.alicdn.com/imgextra/i3/0/TB11ZMTGXXXXXXqXVXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5i1EUa9&scm=1007.15423.84311.100200300000005&id=42259298331&pvid=bbff0617-0005-4ffd-be70-566c8a5123ba', NULL, 158, 0, '562480', NULL, NULL, 0, 'taobao.com', NULL, NULL, '');
+
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
+INSERT INTO `orders` VALUES (1, 1, 0);
+INSERT INTO `orders` VALUES (2, 1, 0);
+INSERT INTO `orders` VALUES (3, 1, 0);
+
+-- ----------------------------
 -- Table structure for statics_multi
 -- ----------------------------
 DROP TABLE IF EXISTS `statics_multi`;
@@ -1142,6 +1213,22 @@ CREATE TABLE `user`  (
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'Vũ', 'Đức Hồng', '+84986209305', 'vuduchong209305@gmail.com', 'vuduchong', '25f9e794323b453885f5181f1b624d0b');
 INSERT INTO `user` VALUES (2, 'Dương', 'Thanh Thảo', '+842362323623', 'duongthanhthao@gmail.com', 'bsdbsdbsd', 'e10adc3949ba59abbe56e057f20f883e');
+
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (1, 'laam55', 'a');
 
 -- ----------------------------
 -- Table structure for utilities

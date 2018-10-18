@@ -11,7 +11,7 @@ class db_init{
       $this->server	 = "localhost";
       $this->username = "root";
       $this->password = "";
-      $this->database = "bluetour";
+      $this->database = "dathang";
    }
 
    function __destruct(){
