@@ -2,7 +2,18 @@
 
 require 'simple_html_dom.php';
 
+require_once("../classes/database.php");
+
 ini_set('default_charset', 'utf-8');
+
+if(isset($_SESSION['message'])) {
+    unset($_SESSION['message']);
+}
+
+$sql = "SELECT * FROM categories";
+$db_select = new db_query($sql);
+
+$addOrder = false;
 
 if(isset($_POST['search'])) {
 
@@ -20,13 +31,15 @@ if(isset($_POST['search'])) {
 
         $attributes_list = $html->find('.attributes-list',0);
 
-        $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');      
+        $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');
 
-        
+        $img = $html->find('#J_ImgBooth',0);
+
+        $addOrder = true;
 
     } else {
 
-        echo 'Vui lòng nhập link';
+        $_SESSION['message']["error"] = "Vui lòng nhập link sản phẩm";
     }
 
 }
@@ -63,6 +76,7 @@ if(isset($_POST['search'])) {
             </div>
             <div class="main">
                 <div class="sec gray-area">
+                    <center><font color="red"> <? echo !$_SESSION['login'] ? 'Đăng nhập để sử dụng tốt nhất' : '' ?> </font></center><br>
                     <div class="sec-tt">
                         <h2 class="tt-txt text-italic">ĐẶT HÀNG NHANH</h2>
                         <p class="deco">
@@ -71,11 +85,11 @@ if(isset($_POST['search'])) {
                     </div>
                     <div class="clear"></div>
                     <div id="ContentPlaceHolder1_upd">
-                        
+                        <? include "inc_message.php" ?>
                         <form action="" method="post">
                             <div class="form-search-product">
                                 <div class="form-search-left">
-                                    <input name="link" type="text" class="form-control txt-search-product" required="" placeholder="Nhập link sản phẩm: taobao, 1688, tmall.">
+                                    <input name="link" type="text" class="form-control txt-search-product" required="" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['link']) ? $_POST['link'] : '' ?>">
                                     <div class="clear"></div>
                                     <br>
                                 </div>
@@ -86,11 +100,11 @@ if(isset($_POST['search'])) {
                         </form>
                 
                         <div id="ContentPlaceHolder1_pn_productview">
-                            <? if(isset($title)) { ?>
+                            <? if(isset($html)) { ?>
                             <div class="product-view">
                                 <? if(isset($img)) { ?>
                                 <div class="pv-left">
-                                    
+                                    <? echo $img ?>
                                 </div>
                                 <? } ?>
 
@@ -125,8 +139,9 @@ if(isset($_POST['search'])) {
                                         <? if(isset($vnd)) { ?>
                                             <span class="price-label">Giá VNĐ:</span>
                                             <span class="price-color vnd">
-                                                <? echo number_format($vnd); ?> vnđ
+                                                <? echo number_format($vnd); ?>
                                             </span>
+                                             vnđ
                                         <? } ?>
                                     </div>
                                     <br>
@@ -151,26 +166,6 @@ if(isset($_POST['search'])) {
 
                         <div class="clear"></div>
 
-
-
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_full" id="ContentPlaceHolder1_ltr_full">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdf_product_ok" id="ContentPlaceHolder1_hdf_product_ok">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdf_title_origin" id="ContentPlaceHolder1_hdf_title_origin">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdf_price_origin" id="ContentPlaceHolder1_hdf_price_origin">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_price_promotion" id="ContentPlaceHolder1_ltr_price_promotion">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_property" id="ContentPlaceHolder1_ltr_property">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_data_value" id="ContentPlaceHolder1_ltr_data_value">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_shop_id" id="ContentPlaceHolder1_ltr_shop_id">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_shop_name" id="ContentPlaceHolder1_ltr_shop_name">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_seller_id" id="ContentPlaceHolder1_ltr_seller_id">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_wangwang" id="ContentPlaceHolder1_ltr_wangwang">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_stock" id="ContentPlaceHolder1_ltr_stock">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_location_sale" id="ContentPlaceHolder1_ltr_location_sale">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_site" id="ContentPlaceHolder1_ltr_site">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_item_id" id="ContentPlaceHolder1_ltr_item_id">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$ltr_link_origin" id="ContentPlaceHolder1_ltr_link_origin">
-                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdf_image_prod" id="ContentPlaceHolder1_hdf_image_prod">
-
                     </div>
                     <div id="ContentPlaceHolder1_UpdateProgress1" style="display:none;" role="status" aria-hidden="true">
 
@@ -183,43 +178,112 @@ if(isset($_POST['search'])) {
                     </div>
 
                     <div class="clear"></div>
+                    
+                    <? if($_SESSION['login']) { ?>
+                    <? if(isset($addOrder) && $addOrder == true ) { ?>
                     <div class="search-internal-box">
 
-                        <select class="form-control _select_category savedb" data-loaded="1">
-                            <option value="0">Chọn danh mục</option>
-                            <option value="2">Áo nữ</option>
-                            <option value="3">Áo nam</option>
-                            <option value="4">Quần nữ</option>
-                            <option value="5">Quần nam</option>
-                            <option value="6">Quần áo trẻ em</option>
-                            <option value="7">Váy</option>
-                            <option value="8">Giày nam</option>
-                            <option value="9">Giày nữ</option>
-                            <option value="10">Giày trẻ em</option>
-                            <option value="11">Phụ kiện thời trang</option>
-                            <option value="12">Túi xách</option>
-                            <option value="13">Ví</option>
-                            <option value="14">Mỹ phẩm</option>
-                            <option value="15">Vải vóc</option>
-                            <option value="16">Tóc giả</option>
-                            <option value="17">Đồ chơi</option>
-                            <option value="18">Trang sức</option>
-                            <option value="19">Phụ tùng ô tô, xe máy</option>
-                            <option value="20">Thiết bị điện tử</option>
-                            <option value="21">Linh kiện điện tử</option>
-                            <option value="22">Phụ kiện điện tử</option>
-                            <option value="23">Sách báo, tranh ảnh, đồ sưu tập</option>
-                            <option value="24">Quà tặng</option>
-                            <option value="25">Đồ gia dụng</option>
+                        <select class="form-control _select_category savedb cate" data-loaded="1" name="cate" required="">
+                            <option value="">Chọn danh mục</option>
+
+                            <? while ($row = mysqli_fetch_array($db_select->result)) { ?>
+
+                                <? echo '<option value="'.$row['id'].'">'.$row['name']."</option>"; ?>
+
+                            <? } ?>
+
                             <option value="-1">Khác</option>
                         </select>
-                        <input type="text" class="form-control txt-brand-product" id="brand-name" placeholder="Ghi chú sản phẩm.">
+                        <input type="text" class="form-control comment" id="product_note" placeholder="Ghi chú sản phẩm.">
                         <a class="btn-add-to-cart" onclick="add_to_cart();" style="font-size: 13px;">Thêm vào giỏ hàng</a>
                     </div>
+                    <? } } ?>
+
                 </div>
             </div>
         </div>
     </div>
-    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdfCheckLogin" id="ContentPlaceHolder1_hdfCheckLogin" value="notlogin">
 
 </main>
+
+<script>
+    function add_to_cart() {
+
+        if($('.cate').val() == '') {
+            alert('Vui lòng chọn danh mục sản phẩm')
+            return false;
+        }
+
+        var title = $('.tb-main-title').text().trim();
+        var price = $('.tb-rmb-num').text().trim();
+        var price_vnd = $('.vnd').text().trim();
+        var image = $('#J_ImgBooth').attr('src').trim();
+        var link = $('.txt-search-product').val().trim();
+        var cate = $('.cate').val().trim();
+        var comment = $('.comment').val().trim();
+        var site = extractRootDomain(link);
+
+        var data = {
+            'title' : title,
+            'price' : price,
+            'price_vnd' : price_vnd,
+            'image' : image,
+            'link' : link,
+            'cate' : cate,
+            'comment' : comment,
+            'site' : site
+        }
+
+        $.ajax({
+            url: "/home/add_to_cart.php",
+            data: {
+                'data' : data,
+                'user_id' : <? echo $_SESSION['id'] ?>
+            },
+            type: 'POST',
+            dataType : 'json',            
+            success: function (val) {
+                console.log(val)
+            }
+        });
+
+    }
+
+    function extractRootDomain(url) {
+        var domain = extractHostname(url),
+            splitArr = domain.split('.'),
+            arrLen = splitArr.length;
+
+        //extracting the root domain here
+        //if there is a subdomain 
+        if (arrLen > 2) {
+            domain = splitArr[arrLen - 2] + '.' + splitArr[arrLen - 1];
+            //check to see if it's using a Country Code Top Level Domain (ccTLD) (i.e. ".me.uk")
+            if (splitArr[arrLen - 2].length == 2 && splitArr[arrLen - 1].length == 2) {
+                //this is using a ccTLD
+                domain = splitArr[arrLen - 3] + '.' + domain;
+            }
+        }
+        return domain;
+    }
+
+    function extractHostname(url) {
+        var hostname;
+        //find & remove protocol (http, ftp, etc.) and get hostname
+
+        if (url.indexOf("//") > -1) {
+            hostname = url.split('/')[2];
+        }
+        else {
+            hostname = url.split('/')[0];
+        }
+
+        //find & remove port number
+        hostname = hostname.split(':')[0];
+        //find & remove "?"
+        hostname = hostname.split('?')[0];
+
+        return hostname;
+    }
+
+</script>

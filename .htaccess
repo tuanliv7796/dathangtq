@@ -1,6 +1,10 @@
 Options +FollowSymLinks
 RewriteEngine On
 RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
 
 # EXPIRES CACHING
 <IfModule mod_expires.c>
@@ -52,3 +56,6 @@ RewriteRule ^huong-dan-dat-hang$ /home/guide.php [L]
 
 #HOME
 RewriteRule ^([^/]*)$ /home/index.php [L]
+
+#HOME
+RewriteRule ^add-to-cart$ /home/add_to_cart.php [L]
