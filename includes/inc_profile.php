@@ -9,7 +9,7 @@ require_once("../functions/functions.php");
 
 $id = $_SESSION['id'];
 
-$sql = sprintf("SELECT last_name, first_name, prefix_phone, phone, email, user_name FROM user WHERE id = %s", $id);
+$sql = ("SELECT last_name, first_name, prefix_phone, phone, email, user_name FROM user WHERE id = ". $id);
 
 $db_select = new db_query($sql);
 

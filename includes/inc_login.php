@@ -3,6 +3,10 @@
 require_once("../classes/database.php");
 require_once("../functions/functions.php");
 
+if(isset($_SESSION['message'])) {
+    unset($_SESSION['message']);
+}
+
 if(isset($_SESSION['email'])) {
 
     redirect('/trang-chu');

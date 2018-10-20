@@ -3,6 +3,10 @@
 require_once("../classes/database.php");
 require_once("../functions/functions.php");
 
+if(isset($_SESSION['message'])) {
+    unset($_SESSION['message']);
+}
+
 if(isset($_SESSION['email'])) {
 
     redirect('/trang-chu');
@@ -27,7 +31,7 @@ if(isset($_SESSION['email'])) {
         } else {
 
             $sql = sprintf("INSERT INTO user (last_name, first_name, prefix_phone, phone, email, user_name, password)
-                VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                 $last_name, $first_name, $prefix_phone, $phone, $email, $user_name, md5($password));
 
             if(new db_execute($sql)) {
@@ -64,11 +68,11 @@ if(isset($_SESSION['email'])) {
 
                         <div class="form-row">
                             <div class="lb">Họ của bạn</div>
-                            <input name="last_name" type="text" class="form-control has-validate" placeholder="Họ" required="">
+                            <input name="last_name" type="text" value="<? echo isset($_POST['last_name']) ? $_POST['last_name'] : '' ?>" class="form-control has-validate" placeholder="Họ" required="">
                         </div>
                         <div class="form-row">
                             <div class="lb">Tên của bạn</div>
-                            <input name="first_name" type="text" class="form-control" placeholder="Tên" required="">
+                            <input name="first_name" type="text" value="<? echo isset($_POST['first_name']) ? $_POST['first_name'] : '' ?>" class="form-control" placeholder="Tên" required="">
                             <div class="clearfix"></div>
 
                         </div>
@@ -81,20 +85,24 @@ if(isset($_SESSION['email'])) {
                                 </select>
                             </div>
                             <div class="form-group-right">
-                                <input name="phone" type="text" maxlength="11" class="form-control" required="" placeholder="Số điện thoại" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
+                                <input name="phone" type="text" maxlength="11" value="<? echo isset($_POST['phone']) ? $_POST['phone'] : '' ?>" class="form-control" required="" placeholder="Số điện thoại" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="lb">Email</div>
-                            <input name="email" type="email" required="" class="form-control has-validate" placeholder="Email">
+                            <input name="email" type="email" value="<? echo isset($_POST['email']) ? $_POST['email'] : '' ?>" required="" class="form-control has-validate" placeholder="Email">
                         </div>
                         <div class="form-row">
                             <div class="lb">Tên đăng nhập / Nickname:</div>
-                            <input name="user_name" type="text" required="" class="form-control has-validate" placeholder="Tên đăng nhập / Nickname">
+                            <input name="user_name" type="text" value="<? echo isset($_POST['user_name']) ? $_POST['user_name'] : '' ?>" required="" class="form-control has-validate" placeholder="Tên đăng nhập / Nickname">
                         </div>
                         <div class="form-row">
                             <div class="lb">Mật khẩu</div>
                             <input name="password" type="password" required="" class="form-control has-validate" placeholder="Mật khẩu đăng nhập">
+                        </div>
+                        <div class="form-row">
+                            <div class="lb">Mật khẩu</div>
+                            <input name="re_password" type="password" required="" class="form-control has-validate" placeholder="Nhập lại mật khẩu">
                         </div>
                         <div class="form-row btn-row">
                             <input type="submit" name="submit" value="Đăng ký" class="btn btn-success btn-block pill-btn primary-btn">

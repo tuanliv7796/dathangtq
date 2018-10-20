@@ -1,38 +1,33 @@
 <?php
 
-require 'simple_html_dom.php';
-
-require_once("../classes/database.php");
-
-ini_set('default_charset', 'utf-8');
-
 if(isset($_SESSION['message'])) {
+
     unset($_SESSION['message']);
+
 }
 
-$sql = "SELECT * FROM categories";
-$db_select = new db_query($sql);
+if(isset($_POST['submit'])) {
 
-$addOrder = false;
+    require_once "../classes/database.php";
+    
+    $url = $_POST['url'];
 
-if(isset($_POST['search'])) {
+    $sql = "SELECT * FROM categories";
 
-    $url = $_POST['link'];
+    $db_select = new db_query($sql);
+
+    $addOrder = false;
 
     if($url != '') {
 
+        require 'simple_html_dom.php';
+
         $html = file_get_html($url, false, null, 0);
-
         $title = $html->find('.tb-main-title',0);
-
         $title = mb_convert_encoding($title, 'UTF-8', 'GB2312');
-
         $tb_rmb_num = $html->find('.tb-rmb-num',0);
-
         $attributes_list = $html->find('.attributes-list',0);
-
         $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');
-
         $img = $html->find('#J_ImgBooth',0);
 
         $addOrder = true;
@@ -43,7 +38,6 @@ if(isset($_POST['search'])) {
     }
 
 }
-
 
 ?>
 
@@ -76,7 +70,7 @@ if(isset($_POST['search'])) {
             </div>
             <div class="main">
                 <div class="sec gray-area">
-                    <center><font color="red"> <? echo !$_SESSION['login'] ? 'Đăng nhập để sử dụng tốt nhất' : '' ?> </font></center><br>
+                    <center><font color="red"> <? echo !isset($_SESSION['login']) ? 'Đăng nhập để sử dụng tốt nhất' : '' ?> </font></center><br>
                     <div class="sec-tt">
                         <h2 class="tt-txt text-italic">ĐẶT HÀNG NHANH</h2>
                         <p class="deco">
@@ -89,12 +83,12 @@ if(isset($_POST['search'])) {
                         <form action="" method="post">
                             <div class="form-search-product">
                                 <div class="form-search-left">
-                                    <input name="link" type="text" class="form-control txt-search-product" required="" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['link']) ? $_POST['link'] : '' ?>">
+                                    <input name="url" type="text" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['link']) ? $_POST['link'] : '' ?>">
                                     <div class="clear"></div>
                                     <br>
                                 </div>
                                 <div class="form-search-right">
-                                    <input type="submit" name="search" value="Tìm thông tin sản phẩm" class="btn-search">
+                                    <input type="submit" name="submit" value="Tìm thông tin sản phẩm" class="btn-search">
                                 </div>
                             </div>
                         </form>
@@ -179,7 +173,7 @@ if(isset($_POST['search'])) {
 
                     <div class="clear"></div>
                     
-                    <? if($_SESSION['login']) { ?>
+                    <? if(isset($_SESSION['login'])) { ?>
                     <? if(isset($addOrder) && $addOrder == true ) { ?>
                     <div class="search-internal-box">
 

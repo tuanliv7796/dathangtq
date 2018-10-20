@@ -5,7 +5,7 @@ class db_init{
    var $username;
    var $password;
    var $database;
-   function db_init(){
+   function __construct(){
 
       // Khai bao Server o day
       $this->server	 = "localhost";
@@ -26,7 +26,7 @@ class db_query
 {
    var $result;
    var $links;
-   function db_query($query){
+   function __construct($query){
       global $arrayListQueryOnPage;
       $file_include_name 	= "";
       if(!isset($arrayListQueryOnPage)){
@@ -58,6 +58,7 @@ class db_query
       unset($dbinit);
       // Lưu vào list query trên Page
       $arrayListQueryOnPage[] 	= array("type" => "query", "query" => $query, "time" => $time, "file" => $file_include_name);
+
       if (!$this->result){
          //Ghi log o file
          $path			= $_SERVER['DOCUMENT_ROOT'] . "/ipstore/";
@@ -98,7 +99,7 @@ class db_query
 class db_execute{
    var $links;
    var $msgbox = 0;
-   function db_execute($query){
+   function __construct($query){
 
       global $arrayListQueryOnPage;
       if(!isset($arrayListQueryOnPage)){
