@@ -871,7 +871,7 @@ select.form-control {
 
 .table-panel .table-panel-total {
     float: left;
-    width: 33.3333333333333%;
+    width: 25%;
     padding: 0 30px;
 }
 
@@ -950,7 +950,7 @@ select.form-control {
 
 .table-panel-main {
     float: left;
-    width: 66.66666666666666%;
+    width: 75%;
 }
 
     .table-panel-main table {

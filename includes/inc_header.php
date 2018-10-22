@@ -10,7 +10,7 @@
                 </div>
                 <div class="right">
 
-                    <? if(!isset($_SESSION['email'])) { ?>
+                    <? if(!isset($_SESSION['login']) || !$_SESSION['login']) { ?>
 
                     <ul class="sns-ul">
                         <li id="loginlink"><a href="/dang-nhap">Đăng nhập</a> | <a href="/dang-ky">Đăng ký</a></li>
@@ -127,6 +127,11 @@ $current_page = PageName();
 
                     <li class="congcudathang <? echo $current_page == 'tool.php' ? 'active': '' ?>"><a href="/cong-cu">CÔNG CỤ ĐẶT HÀNG</a></li>
                     <li class="dathangnhanh <? echo $current_page == 'quick_order.php' ? 'active': '' ?>"><a href="/dat-hang-nhanh">ĐẶT HÀNG MOBILE</a></li>
+                    
+                    <? if(isset($_SESSION['login']) && $_SESSION['login'] !== false) { ?>
+                    <li class="giohang <? echo $current_page == 'cart.php' ? 'active': '' ?>"><a href="/gio-hang">GIỎ HÀNG</a></li>
+                    <? } ?>
+
                 </ul>
                 <div class="right">
 

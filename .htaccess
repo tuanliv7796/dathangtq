@@ -53,6 +53,12 @@ RewriteRule ^huong-dan-dat-hang$ /home/guide.php [L]
 #Add To Cart
 RewriteRule ^add-to-cart$ /home/add_to_cart.php [L]
 
+#giohang
+RewriteRule ^gio-hang$ /home/cart.php [L]
+
+#giohang
+RewriteRule ^thanh-toan$ /home/pay.php [L]
+
 #HOME
 RewriteRule ^([^/]*)$ /home/index.php [L]
 

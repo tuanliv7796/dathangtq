@@ -22,13 +22,15 @@ if(isset($_POST['submit'])) {
 
         require 'simple_html_dom.php';
 
-        $html = file_get_html($url, false, null, 0);
-        $title = $html->find('.tb-main-title',0);
-        $title = mb_convert_encoding($title, 'UTF-8', 'GB2312');
-        $tb_rmb_num = $html->find('.tb-rmb-num',0);
+        $html            = file_get_html($url, false, null, 0);
+        $title           = $html->find('.tb-main-title',0);
+        $title           = mb_convert_encoding($title, 'UTF-8', 'GB2312');
+        $tb_rmb_num      = $html->find('.tb-rmb-num',0);
         $attributes_list = $html->find('.attributes-list',0);
         $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');
-        $img = $html->find('#J_ImgBooth',0);
+        $size            = $html->find('.J_TMySizeProp', 0);
+        $size            = mb_convert_encoding($size, 'UTF-8', 'GB2312');
+        $img             = $html->find('#J_ImgBooth',0);
 
         $addOrder = true;
 
@@ -72,7 +74,7 @@ if(isset($_POST['submit'])) {
                 <div class="sec gray-area">
                     <center><font color="red"> <? echo !isset($_SESSION['login']) ? 'Đăng nhập để sử dụng tốt nhất' : '' ?> </font></center><br>
                     <div class="sec-tt">
-                        <h2 class="tt-txt text-italic">ĐẶT HÀNG NHANH</h2>
+                        <h2 class="tt-txt text-italic">ĐẶT HÀNG BẰNG CÁCH NHẬP LINK SẢN PHẨM</h2>
                         <p class="deco">
                             <img src="./images/title-deco.png" alt="">
                         </p>
@@ -83,7 +85,7 @@ if(isset($_POST['submit'])) {
                         <form action="" method="post">
                             <div class="form-search-product">
                                 <div class="form-search-left">
-                                    <input name="url" type="text" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['link']) ? $_POST['link'] : '' ?>">
+                                    <input name="url" type="text" class="form-control txt-search-product" required="required" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['url']) ? $_POST['url'] : '' ?>">
                                     <div class="clear"></div>
                                     <br>
                                 </div>
@@ -150,7 +152,7 @@ if(isset($_POST['submit'])) {
                                     </div>
                                     <br>
                                     <div class="pv-att title">
-                                        
+                                        <? echo isset($size) ? $size : '' ?>
                                     </div>
                                 </div>
                                 
@@ -159,15 +161,6 @@ if(isset($_POST['submit'])) {
                         </div>
 
                         <div class="clear"></div>
-
-                    </div>
-                    <div id="ContentPlaceHolder1_UpdateProgress1" style="display:none;" role="status" aria-hidden="true">
-
-                        <div class="modal">
-                            <div class="center">
-                                <img alt="" src="./images/loading.gif" width="80px">
-                            </div>
-                        </div>
 
                     </div>
 
@@ -237,7 +230,9 @@ if(isset($_POST['submit'])) {
             type: 'POST',
             dataType : 'json',            
             success: function (val) {
-                console.log(val)
+                if(val == 1) {
+                    window.location.href = '/gio-hang';
+                }
             }
         });
 
