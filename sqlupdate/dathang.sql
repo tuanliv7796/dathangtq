@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 22/10/2018 07:49:28
+ Date: 22/10/2018 23:53:28
 */
 
 SET NAMES utf8mb4;
@@ -204,12 +204,14 @@ CREATE TABLE `cart`  (
   `user_id` int(11) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
 INSERT INTO `cart` VALUES (1, 1, 0);
+INSERT INTO `cart` VALUES (2, 1, 0);
+INSERT INTO `cart` VALUES (7, 1, 0);
 
 -- ----------------------------
 -- Table structure for cart_detail
@@ -218,7 +220,7 @@ DROP TABLE IF EXISTS `cart_detail`;
 CREATE TABLE `cart_detail`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cart_id` int(11) NOT NULL,
-  `item_id` double NOT NULL,
+  `item_id` double DEFAULT NULL,
   `title_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `title_translated` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `cate_id` int(11) DEFAULT NULL,
@@ -230,18 +232,21 @@ CREATE TABLE `cart_detail`  (
   `price_vnd` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0',
   `property` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `property_translated` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `quantity` int(11) DEFAULT 0,
+  `quantity` int(11) DEFAULT 1,
   `site` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `shop_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `shop_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shop_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart_detail
 -- ----------------------------
-INSERT INTO `cart_detail` VALUES (1, 1, 0, '?瑰ぇ??300?ゅ???ュ??澶х??濂宠?240 230 220?や?琛ｅ??涓や欢绉?????缁???。', NULL, 1, '//gd2.alicdn.com/imgextra/i1/0/TB1pkY8abWi31JjSZJiXXbRspXa_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.9.41ca55e5J4K4BF&scm=1007.15423.84311.100200300000001&id=560084066278&pvid=ad6345d4-e864-45a0-b547-1d34d94ac566', NULL, 88, 0, '313280', NULL, NULL, 0, 'taobao.com', NULL, NULL, 'đẹp vãi');
+INSERT INTO `cart_detail` VALUES (1, 1, 560031528098, '?ョ郴绉????琛????峰す??妫?????灏?濂宠蒋濡规?ュ父澶?濂????', NULL, 1, '//gd1.alicdn.com/imgextra/i2/1650670759/TB2tzU6mYsTMeJjSszhXXcGCFXa_!!1650670759.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.87.41ca55e5VMlWVS&scm=1007.15423.84311.100200300000005&id=560031528098&pvid=b828c356-36e2-4d4d-a40a-55540fa3bb85', NULL, 110, 0, '391600', NULL, NULL, 1, 'taobao.com', '109817776', '「芋头先生」', '//yutousir.taobao.com', 'đẹp vồn');
+INSERT INTO `cart_detail` VALUES (2, 2, 556792739732, 'bf椋??╃????瀹块?琛???澶瑰??娓??妫?????濂虫?ョ????2017?版?娼???惧?濂?', NULL, 1, '//gd2.alicdn.com/imgextra/i2/24919717/TB2Kc0.XhiEJuJjSsziXXcpZFXa_!!24919717.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.5.41ca55e5VMlWVS&scm=1007.15423.84311.100200300000005&id=556792739732&pvid=b828c356-36e2-4d4d-a40a-55540fa3bb85', NULL, 259, 0, '922040', NULL, NULL, 1, 'taobao.com', '33669240', '3、[storage] 〓优质团购俱乐部〓', '//3storage.taobao.com', 'đẹp quá');
+INSERT INTO `cart_detail` VALUES (7, 7, 523387434154, '瀹??             瀹???300?ゅぇ??濂宠?缇?缇?缁???绡疯～澶?濂?澶ц。瀹芥?????炬???濂??稿??50', NULL, 1, '//gd1.alicdn.com/imgextra/i3/0/TB112_zKXXXXXcgXFXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5VMlWVS&scm=1007.15423.84311.100200300000001&id=523387434154&pvid=b828c356-36e2-4d4d-a40a-55540fa3bb85&wwlight=cntaobao%E5%BC%A0%E9%9D%99%E5%A8%9C38-%7B523387434154%7D', NULL, 329, 0, '1171240', NULL, NULL, 1, 'taobao.com', '70462591', '娜娜领域', '//shop70462591.taobao.com', 'đẹp thật');
 
 -- ----------------------------
 -- Table structure for categories

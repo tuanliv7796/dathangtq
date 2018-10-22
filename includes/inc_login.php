@@ -28,7 +28,7 @@ if(isset($_SESSION['email'])) {
 
         if($db_select->result->num_rows > 0) {
 
-            $_SESSION['login'] = true;
+            $_SESSION['user_session'] = true;
             $_SESSION['email'] = $email;
             $_SESSION['id'] = $id;
 

@@ -1,45 +1,6 @@
 <?php
 
-if(isset($_SESSION['message'])) {
-
-    unset($_SESSION['message']);
-
-}
-
-require_once "../classes/database.php";
-
-if(isset($_POST['submit'])) {
-
-    $url = $_POST['url'];
-
-    $sql = "SELECT * FROM categories";
-
-    $db_select = new db_query($sql);
-
-    $addOrder = false;
-
-    if($url != '') {
-
-        require 'simple_html_dom.php';
-
-        $html            = file_get_html($url, false, null, 0);
-        $title           = $html->find('.tb-main-title',0);
-        $title           = mb_convert_encoding($title, 'UTF-8', 'GB2312');
-        $tb_rmb_num      = $html->find('.tb-rmb-num',0);
-        $attributes_list = $html->find('.attributes-list',0);
-        $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');
-        $size            = $html->find('.J_TMySizeProp', 0);
-        $size            = mb_convert_encoding($size, 'UTF-8', 'GB2312');
-        $img             = $html->find('#J_ImgBooth',0);
-
-        $addOrder = true;
-
-    } else {
-
-        $_SESSION['message']["error"] = "Vui lòng nhập link sản phẩm";
-    }
-
-}
+require_once 'inc_curl.php';
 
 $id = isset($_SESSION['id']) ? $_SESSION['id'] : false ;
 
@@ -95,7 +56,7 @@ $list_order = new db_query($sql);
             <div class="clear"></div>
         </div>
         <div class="sec gray-area">
-            <center><font color="red"> <? echo !isset($_SESSION['login']) ? 'Đăng nhập để sử dụng tốt nhất' : '' ?> </font></center><br>
+            <center><font color="red"> <? echo !isset($_SESSION['user_session']) ? 'Đăng nhập để sử dụng tốt nhất' : '' ?> </font></center><br>
             <div class="sec-tt">
                 <h2 class="tt-txt text-italic">ĐẶT HÀNG BẰNG CÁCH NHẬP LINK SẢN PHẨM</h2>
                 <p class="deco">
@@ -108,7 +69,7 @@ $list_order = new db_query($sql);
                 <form action="" method="post">
                     <div class="form-search-product">
                         <div class="form-search-left">
-                            <input name="url" type="text" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['link']) ? $_POST['link'] : '' ?>">
+                            <input name="url" type="text" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['url']) ? $_POST['url'] : '' ?>">
                             <div class="clear"></div>
                             <br>
                         </div>
@@ -183,7 +144,7 @@ $list_order = new db_query($sql);
                     <? } ?>
                 </div>
 
-                <? if(isset($_SESSION['login'])) { ?>
+                <? if(isset($_SESSION['user_session'])) { ?>
                 <? if(isset($addOrder) && $addOrder == true ) { ?>
                 <div class="search-internal-box">
 
@@ -259,7 +220,7 @@ $list_order = new db_query($sql);
                                     </td>
                                     <td class="qty">2-4X</td>
                                     <td class="qty">
-                                        <input type="number" value="1" class="form-control quantity" min="1" >
+                                        <input type="number" value="<? echo $row['quantity'] ?>" class="form-control quantity" min="1" >
                                     </td>
                                     <td class="price">
                                         <p>
@@ -316,6 +277,12 @@ $list_order = new db_query($sql);
                                 ?>
                             </tbody>
                         </table>
+
+                        <input type="hidden" value="<? echo isset($item_id) ? $item_id : '' ?>" class="item_id">
+                        <input type="hidden" value="<? echo isset($shop_id) ? $shop_id : '' ?>" class="shop_id">
+                        <input type="hidden" value="<? echo isset($shop_name) ? $shop_name : '' ?>" class="shop_name">
+                        <input type="hidden" value="<? echo isset($shop_link) ? $shop_link : '' ?>" class="shop_link">
+
                     </div>
                     <div class="table-panel-total">
                         <table>
@@ -419,6 +386,10 @@ $list_order = new db_query($sql);
         var cate = $('.cate').val().trim();
         var comment = $('.comment').val().trim();
         var site = extractRootDomain(link);
+        var item_id = $('.item_id').val().trim();
+        var shop_id = $('.shop_id').val().trim();
+        var shop_name = $('.shop_name').val().trim();
+        var shop_link = $('.shop_link').val().trim();
 
         var data = {
             'title' : title,
@@ -428,7 +399,11 @@ $list_order = new db_query($sql);
             'link' : link,
             'cate' : cate,
             'comment' : comment,
-            'site' : site
+            'site' : site,
+            'item_id' : item_id,
+            'shop_id' : shop_id,
+            'shop_name' : shop_name,
+            'shop_link' : shop_link
         }
 
         $.ajax({

@@ -20,9 +20,9 @@ if($data && $user_id) {
 		$db_select = new db_query($sql);
 		$row = mysqli_fetch_assoc($db_select->result);
 
-		$sql = sprintf("INSERT INTO cart_detail (cart_id, title_origin, image_origin, link_origin, price_origin, price_vnd, site, cate_id, comment)
-						VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-						$row['id'], $title, $data['image'], $data['link'], $data['price'], preg_replace("/[^0-9\.]/", "", $data['price_vnd']), $data['site'], $data['cate'], $data['comment']);
+		$sql = sprintf("INSERT INTO cart_detail (cart_id, title_origin, image_origin, link_origin, price_origin, price_vnd, site, cate_id, comment, item_id, shop_id, shop_name, shop_link)
+						VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+						$row['id'], $title, $data['image'], $data['link'], $data['price'], preg_replace("/[^0-9\.]/", "", $data['price_vnd']), $data['site'], $data['cate'], $data['comment'], $data['item_id'], $data['shop_id'], $data['shop_name'], $data['shop_link']);
 
 		if(new db_execute($sql)) {
 
