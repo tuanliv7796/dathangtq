@@ -87,13 +87,17 @@ if($current_page < 1) $current_page = 1;
 unset($db_count);
 //End get page break params
 
-$db_listing	= new db_query("  SELECT *
+/*$db_listing	= new db_query("  SELECT *
          							FROM " . $fs_table . "
          							STRAIGHT_JOIN tours ON(bot_tour_id = tou_id)
          							WHERE 1 " . $sqlWhere . "
          							ORDER BY " . $sqlOrderBy . "
          							LIMIT " . ($current_page-1) * $page_size . "," . $page_size,
-										__FILE__);
+										__FILE__);*/
+
+$db_listing = new db_query("SELECT * FROM cart 
+							JOIN cart_detail ON cart.id = cart_detail.cart_id
+							JOIN categories ON cart_detail.cate_id = categories.id");
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -202,132 +206,67 @@ $db_listing	= new db_query("  SELECT *
 	<div class="content">
 		<div>
 			<div style="clear: both;"></div>
-			<table width="100%" cellspacing="0" cellpadding="0"  class="table table-bordered">
-					<tr class="warning">
-						<td class="h" width="5px">STT</td>
-						<td class="h" width="80px">Thông tin tour</td>
-						<td class="h" width="180px">Thông tin khách hàng</td>
-						<td class="h" width="150px">Thông tin thanh toán</td>
-						<td class="h" width="200px">Khác</td>
-					</tr>
+			<table width="100%" cellspacing="0" cellpadding="0"  class="table table-bordered table-hover">
+				<tr class="warning">
+					<td class="h" width="3%">STT</td>
+					<td class="h" width="5%">Ảnh</td>
+					<td class="h" width="5%">Mã SP</td>
+					<td class="h" width="10%">Tên SP</td>
+					<td class="h" width="10%">Danh mục</td>
+					<td class="h" width="10%">Site</td>
+					<td class="h" width="10%">Shop</td>
+					<td class="h" width="10%">Giá</td>
+					<td class="h" width="10%">Số lượng</td>
+					<td class="h" width="10%">Ghi chú</td>
+					<td class="h" width="10%">Trạng thái</td>
+					<td class="h" width="7%">#</td>
+				</tr>
 				<?
-				//Đếm số thứ tự
-            $No         = ($current_page - 1) * $page_size;
-				while($listing = mysqli_fetch_assoc($db_listing->result)) {
 
-               $use_email  = $listing["bot_user_email"];
-               $use_name   = $listing["bot_user_name"];
-               $use_phone  = $listing["bot_user_phone"];
-               $use_address= $listing["bot_user_address"];
-
-               $No++;
-               $bg_color	= "";
-					?>
-					<tr id="tr_<?=$listing["bot_id"]?>" style="<?=$bg_color?>">
-						<td title="STT" align="center"><b><?=$No?></b></td>
-						<td>
-							<table width="265px" cellpadding="1" class="table_small">
-								<tr>
-									<td nowrap="nowrap">Mã đặt tour:</td>
-									<td><b><?=$listing["bot_code"]?></b></td>
-								</tr>
-								<tr>
-									<td nowrap="nowrap">Tên tour:</td>
-									<td nowrap="nowrap"><?=cut_string($listing['tou_title'], 20)?></td>
-								</tr>
-								<tr>
-									<td nowrap="nowrap">Ngày khởi hành:</td>
-									<td nowrap="nowrap"><?=date("d/m/Y", $listing['bot_start'])?></td>
-								</tr>
-								<tr>
-									<td nowrap="nowrap">Trạng thái:</td>
-									<td><?=isset($arrayStatus[$listing['bot_status']]) ? $arrayStatus[$listing['bot_status']] : ""?></td>
-								</tr>
-								<tr>
-									<td colspan="2" style="width: 200px;">
-										<a href="confirmation.php?url=<?=base64_encode(getURL())?>&record_id=<?=$listing["bot_id"]?>" class="btn btn-sm btn-info">Cập nhật thông tin</a>&nbsp;
-										<a class="btn btn-sm btn-danger" href="send_mail_customer.php?url=<?=base64_encode(getURL())?>&record_id=<?=$listing["bot_id"]?>">Gửi mail cho khách</a>
-								</td>
-								</tr>
-							</table>
-						</td>
-						<td title="Thông tin khách hàng" valign="top">
-							<div style="padding: 5px; line-height: 18px;">
-                     Họ và tên   : <b><a href="<?=getURL(0,0,1,1,"name_search")?>&name_search=<?=$use_name?>"><?=$use_name?></a></b><br />
-                     Điện thoại  : <b><a href="<?=getURL(0,0,1,1,"phone_search")?>&phone_search=<?=$use_phone?>"><?=$use_phone?></a></b><br />
-                     Email       : <b><a href="<?=getURL(0,0,1,1,"email_search")?>&email_search=<?=$use_email?>"><?=$use_email?></a></b><br />
-                  	Số người lớn: <b><?=$listing['bot_total_adult']?> <i>(<?=$listing['bot_total_children']?> trẻ em)</i></b><br />
-							Ghi chú		: <b><?=$listing["bot_user_note"]?></b><br />
-							</div>
-						</td>
-						<td align="left" valign="top">
-							<div style="padding: 5px; line-height: 18px;">
-								<table cellpadding="1" cellspacing="1" class="table_small">
-									<tr>
-										<td valign="top" align="right" style="white-space: nowrap;">HT thanh toán: </td>
-										<td align="center" style="white-space: nowrap;"><b><?=isset($array_method_pay[$listing['bot_payment_method']]['title']) ? $array_method_pay[$listing['bot_payment_method']]['title'] : ""?></b></td>
-									</tr>
-									<tr>
-										<td align="right" style="white-space: nowrap;">Giá trị: </td>
-										<td align="right"><b><?=format_number($listing["bot_total_value"], 0)?> VNĐ</b></td>
-									</tr>
-									<tr>
-										<td align="right" style="white-space: nowrap;">Phụ thu: </td>
-										<td align="right"><b><?=format_number($listing["bot_total_surcharge"], 0)?> VNĐ</b></td>
-									</tr>
-									<tr>
-										<td align="right" style="white-space: nowrap;">Khuyến mại: </td>
-										<td align="right"><b><?=format_number($listing["bot_total_promotion"], 0)?> VNĐ</b></td>
-									</tr>
-									<tr>
-										<td align="right">Tổng tiền: </td>
-										<td align="right"><b><?=format_number($listing["bot_total_payment"], 0)?></b> VNĐ</td>
-									</tr>
-								</table>
-							</div>
-						</td>
-
-						<td>
-							<table cellpadding="1" cellspacing="1" class="table_small">
-								<tr>
-									<td>Ngày đặt</td>
-									<td style="font-size: 11px;">
-										<?=date("d/m/Y H:i:s", $listing["bot_create_time"])?>
-									</td>
-								</tr>
-								<tr>
-									<td valign="top">Cập nhật cuối</td>
-									<td style="font-size: 11px;">
-										<div><?=date("d/m/Y H:i:s", $listing["bot_update_at"])?></div>
-										<div>By: admin</div>
-									</td>
-								</tr>
-								<tr>
-									<td valign="top">Lịch sử</td>
-									<td style="font-size: 11px;">
-										<a onclick="windowPrompt({ href: 'view_history_booking.php?record_id=<?=$listing['bot_id']?>&url_return=<?=base64_encode(getURL())?>', overlayClose: false, showBottom: false, iframe: true, width: 800, height: 500 }); return false;" class="btn btn-danger btn-xs" style="width: auto;" title="Lịch sử booking">Xem</a>
-									</td>
-								</tr>
-								<tr>
-									<td>Ghi chú:</td>
-									<td style="font-size: 11px;">
-										<?=htmlspecialbo($listing["bot_note"])?>
-									</td>
-								</tr>
-							</table>
-						</td>
-                  <script type="text/javascript">
-                     $("#bot_note_" + <?=$listing["bot_id"]?>).dblclick(function() {
-                        $("#txtarea_" + <?=$listing["bot_id"]?>).css("display", "block");
-                        $("#txtarea_" + <?=$listing["bot_id"]?>).focus();
-                        $("#div_" + <?=$listing["bot_id"]?>).css("display", "none");
-                     });
-                     $("#txtarea_" + <?=$listing["bot_id"]?>).blur(function() {
-                        $("#div_" + <?=$listing["bot_id"]?>).css("display", "block");
-                        $(this).css("display", "none");
-                     });
-                  </script>
-					</tr>
+				while($row = mysqli_fetch_assoc($db_listing->result)) {
+           	
+				?>
+				<tr>
+					<td>
+						<? echo $row['id'] ?>
+					</td>
+					<td>
+						<img src="<? echo $row['image_origin'] ?>" alt="<? echo $row['title_origin'] ?>" width="100%"/>
+					</td>
+					<td>
+						<? echo $row['item_id'] ?>
+					</td>
+					<td>
+						<a href="<? echo $row['link_origin'] ?>" target="_blank"><? echo $row['title_origin'] ?></a>
+					</td>
+					<td>
+						<? echo $row['name'] ?>
+					</td>
+					<td>
+						<? echo $row['site'] ?>
+					</td>
+					<td>
+						<a href="<? echo $row['shop_link'] ?>" target="_blank"><? echo $row['shop_name'] ?></a>
+					</td>
+					<td>
+						<? echo $row['price_vnd'] ?>
+					</td>
+					<td>
+						<? echo $row['quantity'] ?>
+					</td>
+              		<td>
+              			<? echo $row['comment'] ?>
+              		</td>
+              		<td>
+              			<select name="" class="form-control">
+              				<option value="1">Đang đóng gói</option>
+              				<option value="2">Đang vận chuyển</option>
+              			</select>
+              		</td>
+              		<td>
+              			<button class="btn btn-small btn-info">Xóa</button>
+              		</td>
+				</tr>
 				<? } ?>
 			</table>
 		</div>

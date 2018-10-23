@@ -21,6 +21,7 @@ if(file_exists("ipstore/" . ip2long($ip) . ".cfn")){
 if($action == "login" && $check_ip_exists == 1){
 	$user_id	= 0;
 	$user_id = checkLogin($username, $password);
+
 	if($user_id != 0){
 		$isAdmin		= 0;
 		$db_isadmin	= new db_query("SELECT adm_isadmin, lang_id FROM admin_user WHERE adm_id = " . $user_id);

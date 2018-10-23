@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 22/10/2018 23:53:28
+ Date: 24/10/2018 00:15:43
 */
 
 SET NAMES utf8mb4;
@@ -50,6 +50,7 @@ INSERT INTO `admin_menu_order` VALUES (1, 17, 0);
 INSERT INTO `admin_menu_order` VALUES (1, 18, 0);
 INSERT INTO `admin_menu_order` VALUES (1, 19, 0);
 INSERT INTO `admin_menu_order` VALUES (1, 20, 0);
+INSERT INTO `admin_menu_order` VALUES (1, 21, 0);
 
 -- ----------------------------
 -- Table structure for admin_user
@@ -79,7 +80,7 @@ CREATE TABLE `admin_user`  (
 -- ----------------------------
 -- Records of admin_user
 -- ----------------------------
-INSERT INTO `admin_user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Peter Lê (Lê Đình Toản)', 'bluetourjsc.vn@gmail.com', '609 Trương Định, Hoàng Mai, Hà Nội', '', '0961995555', NULL, NULL, 0, 1, 1, 1, 0, 0);
+INSERT INTO `admin_user` VALUES (1, 'admin', '25f9e794323b453885f5181f1b624d0b', 'Peter Lê (Lê Đình Toản)', 'bluetourjsc.vn@gmail.com', '609 Trương Định, Hoàng Mai, Hà Nội', '', '0961995555', NULL, NULL, 0, 1, 1, 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for admin_user_right
@@ -204,7 +205,7 @@ CREATE TABLE `cart`  (
   `user_id` int(11) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
@@ -212,6 +213,7 @@ CREATE TABLE `cart`  (
 INSERT INTO `cart` VALUES (1, 1, 0);
 INSERT INTO `cart` VALUES (2, 1, 0);
 INSERT INTO `cart` VALUES (7, 1, 0);
+INSERT INTO `cart` VALUES (8, 1, 0);
 
 -- ----------------------------
 -- Table structure for cart_detail
@@ -239,7 +241,7 @@ CREATE TABLE `cart_detail`  (
   `shop_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart_detail
@@ -247,6 +249,7 @@ CREATE TABLE `cart_detail`  (
 INSERT INTO `cart_detail` VALUES (1, 1, 560031528098, '?ョ郴绉????琛????峰す??妫?????灏?濂宠蒋濡规?ュ父澶?濂????', NULL, 1, '//gd1.alicdn.com/imgextra/i2/1650670759/TB2tzU6mYsTMeJjSszhXXcGCFXa_!!1650670759.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.87.41ca55e5VMlWVS&scm=1007.15423.84311.100200300000005&id=560031528098&pvid=b828c356-36e2-4d4d-a40a-55540fa3bb85', NULL, 110, 0, '391600', NULL, NULL, 1, 'taobao.com', '109817776', '「芋头先生」', '//yutousir.taobao.com', 'đẹp vồn');
 INSERT INTO `cart_detail` VALUES (2, 2, 556792739732, 'bf椋??╃????瀹块?琛???澶瑰??娓??妫?????濂虫?ョ????2017?版?娼???惧?濂?', NULL, 1, '//gd2.alicdn.com/imgextra/i2/24919717/TB2Kc0.XhiEJuJjSsziXXcpZFXa_!!24919717.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.5.41ca55e5VMlWVS&scm=1007.15423.84311.100200300000005&id=556792739732&pvid=b828c356-36e2-4d4d-a40a-55540fa3bb85', NULL, 259, 0, '922040', NULL, NULL, 1, 'taobao.com', '33669240', '3、[storage] 〓优质团购俱乐部〓', '//3storage.taobao.com', 'đẹp quá');
 INSERT INTO `cart_detail` VALUES (7, 7, 523387434154, '瀹??             瀹???300?ゅぇ??濂宠?缇?缇?缁???绡疯～澶?濂?澶ц。瀹芥?????炬???濂??稿??50', NULL, 1, '//gd1.alicdn.com/imgextra/i3/0/TB112_zKXXXXXcgXFXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5VMlWVS&scm=1007.15423.84311.100200300000001&id=523387434154&pvid=b828c356-36e2-4d4d-a40a-55540fa3bb85&wwlight=cntaobao%E5%BC%A0%E9%9D%99%E5%A8%9C38-%7B523387434154%7D', NULL, 329, 0, '1171240', NULL, NULL, 1, 'taobao.com', '70462591', '娜娜领域', '//shop70462591.taobao.com', 'đẹp thật');
+INSERT INTO `cart_detail` VALUES (8, 8, 0, '瀹??             瀹???300?ゅぇ??濂宠?涓??挎?瀹芥?惧?寸?撮?╃??A????缁???。杩?琛ｈ??稿??50', NULL, 1, '//gd4.alicdn.com/imgextra/i1/0/TB15OfxJFXXXXaTXpXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?scm=1007.15423.84311.100200300000001&id=522542719785&pvid=d90bddf8-70df-4be5-b5e3-acd865ce5b87', NULL, 155, 0, '551800', NULL, NULL, 1, 'taobao.com', '70462591', '娜娜领域', '//shop70462591.taobao.com', 'bxcb');
 
 -- ----------------------------
 -- Table structure for categories
@@ -682,7 +685,7 @@ CREATE TABLE `modules`  (
   `lang_id` int(11) DEFAULT 1,
   `mod_checkloca` int(11) DEFAULT 0,
   PRIMARY KEY (`mod_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of modules
@@ -693,7 +696,7 @@ INSERT INTO `modules` VALUES (8, 'Quản lý danh mục', 'categories_multi', 'D
 INSERT INTO `modules` VALUES (10, 'Quản lý Banner', 'banners', 'Thêm mới|Danh sách', 'add.php|listing.php', 0, NULL, 1, 0);
 INSERT INTO `modules` VALUES (12, 'Phân quyền quản trị', 'admin_user', 'Thêm mới|Danh sách', 'add.php|listing.php', 0, NULL, 1, 0);
 INSERT INTO `modules` VALUES (13, 'Cấu hình website', 'configuration', 'Cấu hình website', 'configuration.php', 0, NULL, 1, 0);
-INSERT INTO `modules` VALUES (14, 'Quản lý đặt Tour', 'booking_tours', 'Danh sách đặt Tour', 'listing.php', 0, NULL, 1, 0);
+INSERT INTO `modules` VALUES (14, 'Quản lý đặt hàng', 'booking_tours', 'Danh sách đặt hàng', 'listing.php', 0, NULL, 1, 0);
 INSERT INTO `modules` VALUES (15, 'Quản lý địa điểm', 'destinations', 'Danh sách điểm đến | Thêm mới điểm đến | Danh sách nơi khởi hành | Thêm mới nơi khởi hành', 'listing.php|add.php|listing_departures.php|add_departures.php', 0, NULL, 1, 0);
 INSERT INTO `modules` VALUES (17, 'Quản lý hành trình', 'tours_plans', 'Danh sách hành trình| Thêm mới hành trình', 'listing.php|add.php', 0, NULL, 1, 0);
 INSERT INTO `modules` VALUES (18, 'Quản lý menu', 'menus', 'Danh sách | Thêm mới', 'listing.php|add.php', 0, NULL, 1, 0);
@@ -1230,7 +1233,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'laam55', 'a');
+INSERT INTO `users` VALUES (1, 'hong', '123456789');
 
 -- ----------------------------
 -- Table structure for utilities
