@@ -69,7 +69,7 @@ $list_order = new db_query($sql);
                 <form action="" method="post">
                     <div class="form-search-product">
                         <div class="form-search-left">
-                            <input name="url" type="text" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['url']) ? $_POST['url'] : '' ?>">
+                            <input name="url" type="text" class="form-control txt-search-product" placeholder="Nhập link sản phẩm: taobao" value="<?php echo isset($_POST['url']) ? $_POST['url'] : '' ?>">
                             <div class="clear"></div>
                             <br>
                         </div>
@@ -205,7 +205,7 @@ $list_order = new db_query($sql);
                                     <td class="img">
                                         <div class="thumb-product">
                                             <div class="pd-img">
-                                                <img src="<? echo $row['image_origin'] ?>" alt="">
+                                                <img src="<? echo $row['image_origin'] ? $row['image_origin'] : '' ?>" alt="">
                                             </div>
                                             <div class="info">
                                                 <a href="<? echo $row['link_origin'] ? $row['link_origin'] : '#' ?>" target="_blank">
@@ -348,7 +348,7 @@ $list_order = new db_query($sql);
     })
 
     function checkoutAll() {
-
+        window.location.href = '/thanh-toan'
     }
 
     function deleteOrderItem(id) {
@@ -378,16 +378,16 @@ $list_order = new db_query($sql);
             return false;
         }
 
-        var title = $('.tb-main-title').text().trim();
-        var price = $('.tb-rmb-num').text().trim();
+        var title     = $('.tb-main-title').text().trim();
+        var price     = $('.tb-rmb-num').text().trim();
         var price_vnd = $('.vnd').text().trim();
-        var image = $('#J_ImgBooth').attr('src').trim();
-        var link = $('.txt-search-product').val().trim();
-        var cate = $('.cate').val().trim();
-        var comment = $('.comment').val().trim();
-        var site = extractRootDomain(link);
-        var item_id = $('.item_id').val().trim();
-        var shop_id = $('.shop_id').val().trim();
+        var image     = $('#J_ImgBooth').attr('src').trim();
+        var link      = $('.txt-search-product').val().trim();
+        var cate      = $('.cate').val().trim();
+        var comment   = $('.comment').val().trim();
+        var site      = extractRootDomain(link);
+        var item_id   = $('.item_id').val().trim();
+        var shop_id   = $('.shop_id').val().trim();
         var shop_name = $('.shop_name').val().trim();
         var shop_link = $('.shop_link').val().trim();
 
@@ -417,6 +417,8 @@ $list_order = new db_query($sql);
             success: function (val) {
                 if(val == 1) {
                     window.location.href = '/gio-hang';
+                } else {
+                    alert('Có lỗi xảy ra')
                 }
             }
         });

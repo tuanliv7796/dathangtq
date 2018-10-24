@@ -1,3 +1,39 @@
+<?php
+
+if(isset($_SESSION['message'])) {
+    unset($_SESSION['message']);
+}
+
+require_once("../classes/database.php");
+require_once("../functions/functions.php");
+
+$id = $_SESSION['id'];
+
+$sql = ("SELECT last_name, first_name, prefix_phone, phone, email, user_name, address FROM user WHERE id = ". $id);
+
+$db_select = new db_query($sql);
+
+$array = [];
+
+while ($row = mysqli_fetch_assoc($db_select->result)) {
+    $array['last_name'] = $row['last_name'];
+    $array['first_name'] = $row['first_name'];
+    $array['prefix_phone'] = $row['prefix_phone'];
+    $array['phone'] = $row['phone'];
+    $array['email'] = $row['email'];
+    $array['user_name'] = $row['user_name'];
+    $array['address'] = $row['address'];
+}
+
+$id = isset($_SESSION['id']) ? $_SESSION['id'] : false ;
+
+$sql = sprintf("SELECT * FROM cart_detail JOIN cart ON cart.id = cart_detail.cart_id WHERE cart.user_id = %s", $id);
+
+$list_order = new db_query($sql);
+
+
+?>
+
 <main id="main-wrap">
     <div class="all">
         <div class="main">
@@ -5,25 +41,25 @@
                 <div class="sec-tt">
                     <h2 class="tt-txt">Đơn hàng</h2>
                     <p class="deco">
-                        <img src="/App_Themes/NHST/images/title-deco.png" alt="">
+                        <img src="../images/title-deco.png" alt="">
                     </p>
                 </div>
                 <div class="steps">
                     <div class="step ">
                         <div class="step-img">
-                            <img src="/App_Themes/NHST/images/order-step-1.png" alt="">
+                            <img src="../images/order-step-1.png" alt="">
                         </div>
                         <h4 class="title">Giỏ hàng</h4>
                     </div>
                     <div class="step active">
                         <div class="step-img">
-                            <img src="/App_Themes/NHST/images/order-step-2.png" alt="">
+                            <img src="../images/order-step-2.png" alt="">
                         </div>
                         <h4 class="title">Chọn địa chỉ nhận hàng</h4>
                     </div>
                     <div class="step ">
                         <div class="step-img">
-                            <img src="/App_Themes/NHST/images/order-step-3.png" alt="">
+                            <img src="../images/order-step-3.png" alt="">
                         </div>
                         <h4 class="title">Đặt cọc và kết đơn</h4>
                     </div>
@@ -36,19 +72,19 @@
                         <div>
                             <div class="form-row">
                                 <div class="lb">Họ tên</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_Fullname" type="text" value="Vũ Đức Hồng" readonly="readonly" id="ContentPlaceHolder1_txt_Fullname" class="form-control">
+                                <input type="text" value="<? echo $array['last_name'] . ' ' . $array['first_name'] ?>" readonly="readonly" class="form-control">
                             </div>
                             <div class="form-row">
                                 <div class="lb">Địa chỉ</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_Address" type="text" readonly="readonly" id="ContentPlaceHolder1_txt_Address" class="form-control">
+                                <input type="text" readonly="readonly" class="form-control" value="<? echo $array['address'] ?>">
                             </div>
                             <div class="form-row">
                                 <div class="lb">Email</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_Email" type="text" value="vuduchong209305@gmail.com" readonly="readonly" id="ContentPlaceHolder1_txt_Email" class="form-control">
+                                <input type="text" value="<? echo $array['email'] ?>" readonly="readonly" class="form-control">
                             </div>
                             <div class="form-row">
                                 <div class="lb">Số điện thoại</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_Phone" type="text" value="+84986209305" readonly="readonly" id="ContentPlaceHolder1_txt_Phone" class="form-control">
+                                <input type="text" value="<? echo $array['prefix_phone'] . ' ' . $array['phone'] ?>" readonly="readonly" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -57,34 +93,30 @@
                         <div>
                             <div class="form-row">
                                 <div class="lb">Họ tên</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_DFullname" type="text" value="Vũ Đức Hồng" id="ContentPlaceHolder1_txt_DFullname" class="form-control">
-                                <span id="ContentPlaceHolder1_rq1" style="color:Red;visibility:hidden;">Không được để rỗng.</span>
+                                <input name="fullname" type="text" value="<? echo $array['last_name'] . ' ' . $array['first_name'] ?>" class="form-control" required="">
                             </div>
                             <div class="form-row">
                                 <div class="lb">Địa chỉ</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_DAddress" type="text" id="ContentPlaceHolder1_txt_DAddress" class="form-control">
-                                <span id="ContentPlaceHolder1_RequiredFieldValidator1" style="color:Red;visibility:hidden;">Không được để rỗng.</span>
+                                <input name="address" type="text" class="form-control" required="" value="<? echo $array['address'] ?>">
                             </div>
                             <div class="form-row">
                                 <div class="lb">Email</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_DEmail" type="text" value="vuduchong209305@gmail.com" id="ContentPlaceHolder1_txt_DEmail" class="form-control">
-                                <span id="ContentPlaceHolder1_RequiredFieldValidator2" style="color:Red;visibility:hidden;">Không được để rỗng.</span>
+                                <input name="email" type="text" value="<? echo $array['email'] ?>" class="form-control" required="">
                             </div>
                             <div class="form-row">
                                 <div class="lb">Số điện thoại</div>
-                                <input name="ctl00$ContentPlaceHolder1$txt_DPhone" type="text" value="+84986209305" id="ContentPlaceHolder1_txt_DPhone" class="form-control">
-                                <span id="ContentPlaceHolder1_RequiredFieldValidator3" style="color:Red;visibility:hidden;">Không được để rỗng.</span>
+                                <input name="phone" type="text" value="<? echo $array['prefix_phone'] . ' ' . $array['phone'] ?>" class="form-control" required="">
                             </div>
                         </div>
                         <div class="form-row btn-row">
-                            <input id="ContentPlaceHolder1_chk_DK" type="checkbox" name="ctl00$ContentPlaceHolder1$chk_DK">
+                            <input type="checkbox" name="checkbox">
                             Tôi đồng ý với các <a href="/chinh-sach-5/dieu-khoan-dat-hang-15" style="color: blue;" target="_blank">điều khoản đặt hàng</a> của Nhập Hàng Siêu Tốc
                         </div>
                         <div class="form-row btn-row">
                         </div>
                         <div class="form-row btn-row">
                             <a href="/gio-hang" class="left hl-txt link"><i class="fa fa-long-arrow-left"></i>Quay lại</a>
-                            <input type="submit" name="ctl00$ContentPlaceHolder1$btn_saveOrder" value="HOÀN TẤT" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentPlaceHolder1$btn_saveOrder&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ContentPlaceHolder1_btn_saveOrder" class="right btn pill-btn primary-btn">
+                            <input type="submit" name="submit" value="HOÀN TẤT" class="right btn pill-btn primary-btn">
                         </div>
                     </div>
                 </div>
@@ -97,24 +129,30 @@
                                         <h4 class="title"></h4>
                                     </td>
                                 </tr>
+                                <?
+
+                                    while ($row = mysqli_fetch_array($list_order->result)) {
+
+                                ?>
                                 <tr class="borderbtm">
                                     <td colspan="2">
                                         <div class="thumb-product">
-                                            <div class="pd-img">                       <img src="//gd4.alicdn.com/imgextra/i3/0/TB112_zKXXXXXcgXFXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg" alt=""><span class="badge">3</span>                   </div>
-                                            <div class="info"><a href="https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5J4K4BF&amp;scm=1007.15423.84311.100200300000001&amp;id=523387434154&amp;pvid=ad6345d4-e864-45a0-b547-1d34d94ac566">定制 定做300斤大码女装羊羊绒斗篷衫外套大衣宽松A版百搭外套胸围150</a></div>
+                                            <div class="pd-img">
+                                                <img src="<? echo $row['image_origin'] ? $row['image_origin'] : '' ?>" alt="">
+                                                <span class="badge"><? echo $row['quantity'] ?></span>
+                                            </div>
+                                            <div class="info">
+                                                <a href="<? echo $row['link_origin'] ? $row['link_origin'] : '#' ?>"><? echo $row['title_origin'] ?></a>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td>               <strong>3,434,760vnđ</strong>           </td>
-                                </tr>
-                                <tr class="borderbtm">
-                                    <td colspan="2">
-                                        <div class="thumb-product">
-                                            <div class="pd-img">                       <img src="//gd4.alicdn.com/imgextra/i3/0/TB112_zKXXXXXcgXFXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg" alt=""><span class="badge">2</span>                   </div>
-                                            <div class="info"><a href="https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.3.41ca55e5J4K4BF&amp;scm=1007.15423.84311.100200300000001&amp;id=523387434154&amp;pvid=ad6345d4-e864-45a0-b547-1d34d94ac566">定制 定做300斤大码女装羊羊绒斗篷衫外套大衣宽松A版百搭外套胸围150</a></div>
-                                        </div>
+                                    <td>
+                                        <strong><? echo number_format($row['price_vnd']) ?> vnđ</strong>
                                     </td>
-                                    <td>               <strong>2,289,840vnđ</strong>           </td>
                                 </tr>
+
+                                <? } ?>
+
                                 <tr>
                                     <td>Phí ship Trung Quốc</td>
                                     <td></td>

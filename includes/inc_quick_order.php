@@ -46,7 +46,7 @@ require_once 'inc_curl.php';
                         <form action="" method="post">
                             <div class="form-search-product">
                                 <div class="form-search-left">
-                                    <input name="url" type="text" class="form-control txt-search-product" required="required" placeholder="Nhập link sản phẩm: taobao, 1688, tmall." value="<?php echo isset($_POST['url']) ? $_POST['url'] : '' ?>">
+                                    <input name="url" type="text" class="form-control txt-search-product" required="required" placeholder="Nhập link sản phẩm: taobao" value="<?php echo isset($_POST['url']) ? $_POST['url'] : '' ?>">
                                     <div class="clear"></div>
                                     <br>
                                 </div>
@@ -102,7 +102,7 @@ require_once 'inc_curl.php';
                                     </div>
                                     <br>
                                     <div class="pv-att">
-                                        <div id="attributes" class="attributes"><div id="J_Qualification"></div> 
+                                        <div id="attributes" class="attributes">
 
                                             <ul class="attributes-list"> 
                                                 <? echo isset($attributes_list) ? $attributes_list : '' ?>
@@ -122,6 +122,7 @@ require_once 'inc_curl.php';
                             <input type="hidden" value="<? echo isset($shop_id) ? $shop_id : '' ?>" class="shop_id">
                             <input type="hidden" value="<? echo isset($shop_name) ? $shop_name : '' ?>" class="shop_name">
                             <input type="hidden" value="<? echo isset($shop_link) ? $shop_link : '' ?>" class="shop_link">
+                            <input type="hidden" value="" class="property">
 
                             <? } ?>
                         </div>
@@ -160,6 +161,20 @@ require_once 'inc_curl.php';
 </main>
 
 <script>
+
+    $(document).ready(function(){
+        $('.J_TSaleProp li').click(function(){
+
+            $(this).css("color", "red");
+            $('.J_TSaleProp li').not(this).removeAttr('style');
+
+            var val = $(this).find('span').text()
+
+            $('.property').val(val)
+
+        })
+    })
+
     function add_to_cart() {
 
         if($('.cate').val() == '') {
@@ -179,6 +194,12 @@ require_once 'inc_curl.php';
         var shop_id = $('.shop_id').val().trim();
         var shop_name = $('.shop_name').val().trim();
         var shop_link = $('.shop_link').val().trim();
+        var property = $('.property').val().trim();
+
+        if(property == '') {
+            alert('Vui lòng chọn thuộc tính sản phẩm');
+            return false;
+        }
 
         var data = {
             'title' : title,
@@ -192,7 +213,8 @@ require_once 'inc_curl.php';
             'item_id' : item_id,
             'shop_id' : shop_id,
             'shop_name' : shop_name,
-            'shop_link' : shop_link
+            'shop_link' : shop_link,
+            'property' : property
         }
 
         $.ajax({

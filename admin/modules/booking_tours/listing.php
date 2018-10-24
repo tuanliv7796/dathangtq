@@ -226,7 +226,7 @@ $db_listing = new db_query("SELECT * FROM cart
 				while($row = mysqli_fetch_assoc($db_listing->result)) {
            	
 				?>
-				<tr>
+				<tr data-id="<? echo $row['id'] ?>">
 					<td>
 						<? echo $row['id'] ?>
 					</td>
@@ -258,9 +258,10 @@ $db_listing = new db_query("SELECT * FROM cart
               			<? echo $row['comment'] ?>
               		</td>
               		<td>
-              			<select name="" class="form-control">
-              				<option value="1">Đang đóng gói</option>
-              				<option value="2">Đang vận chuyển</option>
+              			<select name="status" class="form-control status">
+              				<option value="1" <? echo $row['status'] == 1 ? "selected='selected'" : '' ?>>Đang đóng gói</option>
+              				<option value="2" <? echo $row['status'] == 2 ? "selected='selected'" : '' ?>>Đang vận chuyển</option>
+              				<option value="3" <? echo $row['status'] == 3 ? "selected='selected'" : '' ?>>Đang đi giao</option>
               			</select>
               		</td>
               		<td>
@@ -288,6 +289,35 @@ $db_listing = new db_query("SELECT * FROM cart
 </html>
 <? unset($db_listing); ?>
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$('.status').change(function(){
+		var status = $(this).val()
+		var id = $(this).parents('tr').attr('data-id')
+
+		$.ajax({
+            url: "/ajax/ajax_update_status.php",
+            data: {
+                'status' : status,
+                'id' : id
+            },
+            type: 'POST',
+            dataType : 'json',            
+            success: function (val) {
+                if(val == 1) {
+                    console.log('ok')
+                } else {
+                	alert('không thành công');
+                }
+            }
+        });
+	})
+})
+
+
+
+
+
 function bot_cancel(id){
 	if(id){
 		$.post("delete.php", {

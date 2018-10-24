@@ -3,10 +3,8 @@
         <div class="all full-width-no-limit">
             <div class="main">
                 <div class="left">
-                    <a href="javascript:;" class="contact-link">Tỷ giá: 1<i class="fa fa-yen"
-                                                                            style="margin-right:0"></i> = 3,560</a><a
+                    <a href="javascript:;" class="contact-link">Tỷ giá: 1<i class="fa fa-yen" style="margin-right:0"></i> = 3,560</a><a
                         href="mailto:admin@nhaphangsieutoc.com" class="contact-link"><i class="fa fa-envelope"></i>admin@nhaphangsieutoc.com</a>
-
                 </div>
                 <div class="right">
 
