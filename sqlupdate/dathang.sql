@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 25/10/2018 00:50:53
+ Date: 27/10/2018 13:31:21
 */
 
 SET NAMES utf8mb4;
@@ -195,56 +195,6 @@ INSERT INTO `booking_tours` VALUES (4, 'BLUETOUR124', 0, '20ac32f6f46f82a455c842
 INSERT INTO `booking_tours` VALUES (5, 'BLUETOUR125', 0, '935319caebd7dd3d7e5c487e96328404f9ddad88ff3d969be0c2feef36e5ff60', 3, 0, 'fs', '0', 'wsdfds', NULL, 0, 'sfsdfd', 3, 0, 1508371200, 3, NULL, 3700000000, 3000000000, 11100000000, 0, 0, 0, 11100000000, 0, '', 0, 0, '', 1508379647, 0, 0, NULL);
 INSERT INTO `booking_tours` VALUES (6, 'BLUETOUR126', 0, 'd35c1c6ea62c7f3a37516e2d5ba07813903a4cb7e92a8f808139950935583be0', 6, 0, 'Nguyen dieu linh', '1639218060', 'ngdlinh13@gmail.com', NULL, 0, '', 1, 0, 1510185600, 3, '', 10900000, 0, 10900000, 0, 0, 0, 10900000, 0, '', 0, 1, '', 1510219072, 1510219193, 0, NULL);
 INSERT INTO `booking_tours` VALUES (7, 'BLUETOUR127', 0, 'a08377e6f48bdbe9042a11a7d985e013d2fd2884ec8a6e2dc2924dac7fe7c1f8', 6, 0, 'Nguyễn Văn A', '1678008938', 'abc@gmail.com', NULL, 0, 'Không có yêu cầu khác', 1, 0, 1510272000, 3, NULL, 10900000, 0, 10900000, 0, 0, 0, 10900000, 0, '', 0, 0, '', 1510301417, 0, 0, NULL);
-
--- ----------------------------
--- Table structure for cart
--- ----------------------------
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE `cart`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of cart
--- ----------------------------
-INSERT INTO `cart` VALUES (1, 1, 0);
-
--- ----------------------------
--- Table structure for cart_detail
--- ----------------------------
-DROP TABLE IF EXISTS `cart_detail`;
-CREATE TABLE `cart_detail`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cart_id` int(11) NOT NULL,
-  `item_id` double DEFAULT NULL,
-  `title_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `title_translated` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `cate_id` int(11) DEFAULT NULL,
-  `image_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `link_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `location_sale` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `price_origin` int(11) DEFAULT 0,
-  `price_promotion` int(11) DEFAULT 0,
-  `price_vnd` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0',
-  `property` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `property_translated` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `quantity` int(11) DEFAULT 1,
-  `site` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `shop_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `shop_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `shop_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `status` tinyint(1) DEFAULT NULL COMMENT '1 - đang đóng gói, 2 - đang vận chuyển, 3 - đang đi giao',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of cart_detail
--- ----------------------------
-INSERT INTO `cart_detail` VALUES (1, 1, 556347790129, '浠ｈ喘             棣?娓?唬璐??澶ч?ㄦ按澧ㄧ?婚奔??瀹跨?峰コ娆惧??惧ぇ????渚ｈ?BF椋????T?ゆ疆', NULL, 1, '//gd1.alicdn.com/imgextra/i2/0/TB1RrgdRVXXXXaPapXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg', 'https://item.taobao.com/item.htm?spm=a21wu.241046-global.4691948847.7.41ca55e5q45gCt&scm=1007.15423.84311.100200300000004&id=556347790129&pvid=10658134-858f-48dc-897a-b42c38dacee0', NULL, 378, 0, '1345680', 'L（130-145斤）宽松版', NULL, 1, 'taobao.com', '106407003', '特蕾西娅港澳代购店', '//shop106407003.taobao.com', 'đẹp đấy', 2);
 
 -- ----------------------------
 -- Table structure for categories
@@ -804,6 +754,54 @@ CREATE TABLE `newsletter`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for order_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `order_detail`;
+CREATE TABLE `order_detail`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `item_id` double DEFAULT NULL,
+  `title_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `title_translated` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `cate_id` int(11) DEFAULT NULL,
+  `image_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `link_origin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `location_sale` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price_origin` int(11) DEFAULT 0,
+  `price_promotion` int(11) DEFAULT 0,
+  `price_vnd` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0',
+  `price_ship` int(255) DEFAULT NULL COMMENT 'phí ship',
+  `property` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `property_translated` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `quantity` int(11) DEFAULT 1,
+  `site` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shop_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shop_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shop_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `status` tinyint(1) DEFAULT NULL COMMENT '1 - đang đóng gói, 2 - đang vận chuyển, 3 - đang đi giao',
+  `date_order` datetime(0) DEFAULT NULL COMMENT 'ngày đặt',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL COMMENT '0 - Đặt hàng',
+  `warehouse` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'địa lý kho',
+  `fullname` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'tên người nhận hàng',
+  `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'địa chỉ',
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'địa chỉ email',
+  `phone` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'sđt',
+  `date_order` datetime(0) DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT 'thời gian đặt hàng',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for statics_multi
 -- ----------------------------
 DROP TABLE IF EXISTS `statics_multi`;
@@ -830,6 +828,24 @@ CREATE TABLE `statics_multi`  (
 INSERT INTO `statics_multi` VALUES (7, 20, ' Giới thiệu', 'gioi-thieu', NULL, '<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	<strong style=\"box-sizing: border-box; outline: none;\">iVIVU.com - hệ thống đặt ph&ograve;ng kh&aacute;ch sạn trực tuyến</strong>, cung cấp giải ph&aacute;p tối ưu gi&uacute;p người d&ugrave;ng t&igrave;m kiếm v&agrave; đặt ph&ograve;ng với hệ thống x&aacute;c nhận v&agrave; giữ ph&ograve;ng tức thời, phương thức thanh to&aacute;n đa dạng, dịch vụ chăm s&oacute;c kh&aacute;ch h&agrave;ng 24/7.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	<strong style=\"box-sizing: border-box; outline: none;\">iVIVU.com</strong>&nbsp;l&agrave; th&agrave;nh vi&ecirc;n&nbsp;của&nbsp;<strong style=\"box-sizing: border-box; outline: none;\">Tập đo&agrave;n TMG Việt Nam</strong>&nbsp;với hơn 20 năm kinh nghiệm trong lĩnh vực Du lịch &ndash; Kh&aacute;ch sạn. TMG Việt Nam hiện đang sở hữu c&aacute;c thương hiệu nổi tiếng tr&ecirc;n thị trường như Buffalo Tours, H&agrave;ng kh&ocirc;ng Hải &Acirc;u, Victoria Hotels and Resorts, &Ecirc;MM,... iVIVU.com phục vụ kh&aacute;ch h&agrave;ng to&agrave;n cầu, đặc biệt khu vực Đ&ocirc;ng Nam &Aacute;, bao gồm c&aacute;c tổ chức, c&ocirc;ng ty, đơn vị, c&aacute; nh&acirc;n c&oacute; nhu cầu đi c&ocirc;ng t&aacute;c, hội thảo, thăm người th&acirc;n, du lịch, chữa bệnh, v.v&hellip;</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	<strong style=\"box-sizing: border-box; outline: none;\">iVIVU.com</strong>&nbsp;đ&atilde; đạt giải thưởng The Guide 2013 d&agrave;nh cho Website Thương mại điện tử về du lịch tốt nhất Việt Nam.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	<strong style=\"box-sizing: border-box; outline: none;\">iVIVU.com &amp; c&aacute;c điểm ưu việt:</strong></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	- Đ&aacute;p ứng mọi y&ecirc;u cầu c&oacute; thể của kh&aacute;ch h&agrave;ng từ c&aacute; nh&acirc;n tới tổ chức, kh&ocirc;ng ph&acirc;n biệt vị tr&iacute; địa l&yacute;.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	- Cung cấp dịch vụ đa dạng, đầy đủ loại kh&aacute;ch sạn, loại ph&ograve;ng ở phạm vi to&agrave;n cầu, với hệ thống khoảng 2.500 kh&aacute;ch sạn tại Việt Nam &amp; hơn 30.000 kh&aacute;ch sạn quốc tế.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	- Dịch vụ kh&aacute;ch h&agrave;ng nhiệt t&acirc;m, chu đ&aacute;o 24/7.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	- Thanh to&aacute;n linh hoạt, nhanh ch&oacute;ng, an to&agrave;n.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	- Lu&ocirc;n c&oacute; chương tr&igrave;nh ưu đ&atilde;i, khuyến mại, giảm gi&aacute; đặc biệt cho kh&aacute;ch đo&agrave;n, c&ocirc;ng ty, tổ chức.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	Ngo&agrave;i ra, iVIVU.com cung cấp miễn ph&iacute;&nbsp;<a href=\"https://www.ivivu.com/pms\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\" target=\"_blank\" title=\"Phần mềm quản lý khách sạn\">hệ thống quản l&yacute; kh&aacute;ch sạn</a>&nbsp;(<strong style=\"box-sizing: border-box; outline: none;\">Property Management System - PMS</strong>) cho kh&aacute;ch sạn vừa v&agrave; nhỏ; mạng Extranet cho c&aacute;c kh&aacute;ch sạn lớn, resort cao cấp trong v&agrave; ngo&agrave;i Việt Nam.</p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	<strong style=\"box-sizing: border-box; outline: none;\">Vui l&ograve;ng li&ecirc;n hệ:</strong></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	1. Dịch vụ kh&aacute;ch h&agrave;ng, đặt ph&ograve;ng kh&aacute;ch sạn: Hotline&nbsp;<strong style=\"box-sizing: border-box; outline: none;\">1900 1870</strong>&nbsp;&ndash; Email:&nbsp;<a href=\"mailto:TC@iVIVU.com\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\">TC@iVIVU.com</a></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	2. Nh&agrave; cung cấp li&ecirc;n hệ &ndash; Email:&nbsp;<a href=\"mailto:Market@ivivu.com\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\">Market@ivivu.com</a></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	3. Li&ecirc;n hệ Marketing &ndash; Email:&nbsp;<a href=\"mailto:thanhlong.nguyen@ivivu.com\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\">marketing@ivivu.com</a></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	4. C&aacute;c li&ecirc;n hệ kh&aacute;c:&nbsp;<strong style=\"box-sizing: border-box; outline: none;\">1900 1870</strong></p>\r\n', 1510495887, 1, 1, 0);
 INSERT INTO `statics_multi` VALUES (6, 18, ' Thông tin liên kết', 'thong-tin-lien-ket', NULL, '', 1510420232, 1, 1, 0);
 INSERT INTO `statics_multi` VALUES (8, 20, ' Liên hệ', 'lien-he', NULL, '<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	<strong style=\"box-sizing: border-box; outline: none;\">Vui l&ograve;ng li&ecirc;n hệ:</strong></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	1. Dịch vụ kh&aacute;ch h&agrave;ng, đặt ph&ograve;ng kh&aacute;ch sạn: Hotline&nbsp;<strong style=\"box-sizing: border-box; outline: none;\">1900 1870</strong>&nbsp;&ndash; Email:&nbsp;<a href=\"mailto:TC@iVIVU.com\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\">TC@iVIVU.com</a></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	2. Nh&agrave; cung cấp li&ecirc;n hệ &ndash; Email:&nbsp;<a href=\"mailto:Market@ivivu.com\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\">Market@ivivu.com</a></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	3. Li&ecirc;n hệ Marketing &ndash; Email:&nbsp;<a href=\"mailto:thanhlong.nguyen@ivivu.com\" style=\"box-sizing: border-box; outline: none; background-color: transparent; color: rgb(37, 116, 169); text-decoration-line: none; transition: all 0.25s ease-in-out;\">marketing@ivivu.com</a></p>\r\n<p style=\"box-sizing: border-box; outline: none; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">\r\n	4. C&aacute;c li&ecirc;n hệ kh&aacute;c:&nbsp;<strong style=\"box-sizing: border-box; outline: none;\">1900 1870</strong></p>\r\n', 1510496007, 1, 1, 0);
+
+-- ----------------------------
+-- Table structure for status
+-- ----------------------------
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of status
+-- ----------------------------
+INSERT INTO `status` VALUES (1, 'Đã đặt hàng');
+INSERT INTO `status` VALUES (2, 'Đang đóng gói');
+INSERT INTO `status` VALUES (3, 'Đang vận chuyển');
+INSERT INTO `status` VALUES (4, 'Hủy đơn hàng');
 
 -- ----------------------------
 -- Table structure for tags

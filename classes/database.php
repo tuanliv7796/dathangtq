@@ -1,14 +1,14 @@
-<?
-$arrayListQueryOnPage	= array(); // Array lưu các query trong 1 page
+<?php
+$arrayListQueryOnPage   = array(); // Array lưu các query trong 1 page
 class db_init{
    var $server;
    var $username;
    var $password;
    var $database;
-   function __construct(){
+   function db_init(){
 
       // Khai bao Server o day
-      $this->server	 = "localhost";
+      $this->server   = "localhost";
       $this->username = "root";
       $this->password = "";
       $this->database = "dathang";
@@ -26,11 +26,11 @@ class db_query
 {
    var $result;
    var $links;
-   function __construct($query){
+   function db_query($query){
       global $arrayListQueryOnPage;
-      $file_include_name 	= "";
+      $file_include_name   = "";
       if(!isset($arrayListQueryOnPage)){
-         $arrayListQueryOnPage 	= array();
+         $arrayListQueryOnPage   = array();
       }
 
       $dbinit = new db_init();
@@ -53,25 +53,24 @@ class db_query
       mysqli_query($this->links,"SET NAMES 'utf8'");
       $this->result = mysqli_query($this->links,$query);
 
-      $time_end	= $this->microtime_float();
-      $time			= $time_end - $time_start;
+      $time_end   = $this->microtime_float();
+      $time       = $time_end - $time_start;
       unset($dbinit);
       // Lưu vào list query trên Page
-      $arrayListQueryOnPage[] 	= array("type" => "query", "query" => $query, "time" => $time, "file" => $file_include_name);
-
+      $arrayListQueryOnPage[]    = array("type" => "query", "query" => $query, "time" => $time, "file" => $file_include_name);
       if (!$this->result){
          //Ghi log o file
-         $path			= $_SERVER['DOCUMENT_ROOT'] . "/ipstore/";
-         $filename	= "sqlerror_" . date("Y_m_d_H") . "h.txt";
+         $path       = $_SERVER['DOCUMENT_ROOT'] . "/ipstore/";
+         $filename   = "sqlerror_" . date("Y_m_d_H") . "h.txt";
 
-         $handle		= @fopen($path . $filename, "a");
+         $handle     = @fopen($path . $filename, "a");
          //Nếu handle chưa có mở thêm ../
-         if (!$handle) $handle	= @fopen($path . $filename, "a");
+         if (!$handle) $handle   = @fopen($path . $filename, "a");
          //Nếu ko mở đc lần 2 thì exit luôn
          if (!$handle) exit();
 
-         $url		= $file_include_name;
-         $error	= mysqli_error($this->links);
+         $url     = $file_include_name;
+         $error   = mysqli_error($this->links);
          mysqli_close($this->links);
 
          @fwrite($handle, date("d/m/Y h:i:s") . " " . @$_SERVER['REMOTE_ADDR'] . " " . @$_SERVER['SCRIPT_NAME'] . "?" . @$_SERVER['QUERY_STRING'] . "\n");
@@ -99,35 +98,35 @@ class db_query
 class db_execute{
    var $links;
    var $msgbox = 0;
-   function __construct($query){
+   function db_execute($query){
 
       global $arrayListQueryOnPage;
       if(!isset($arrayListQueryOnPage)){
-         $arrayListQueryOnPage 	= array();
+         $arrayListQueryOnPage   = array();
       }
 
-      $file_include_name 	= "";
+      $file_include_name   = "";
 
-      $dbinit			= new db_init();
-      $this->links	= mysqli_connect($dbinit->server, $dbinit->username, $dbinit->password);
+      $dbinit        = new db_init();
+      $this->links   = mysqli_connect($dbinit->server, $dbinit->username, $dbinit->password);
       mysqli_select_db($this->links,$dbinit->database);
 
       unset($dbinit);
 
-      $time_start	= $this->microtime_float();
+      $time_start = $this->microtime_float();
 
       mysqli_query($this->links, "SET NAMES 'utf8'");
       mysqli_query($this->links, $query);
 
-      $this->msgbox	= @mysqli_affected_rows($this->links);
+      $this->msgbox  = @mysqli_affected_rows($this->links);
 
-      $time_end	= $this->microtime_float();
-      $time			= $time_end - $time_start;
+      $time_end   = $this->microtime_float();
+      $time       = $time_end - $time_start;
 
       mysqli_close($this->links);
 
       // Lưu vào list query trên Page
-      $arrayListQueryOnPage[] 	= array("type" => "execute", "query" => $query, "time" => $time, "file" => $file_include_name);
+      $arrayListQueryOnPage[]    = array("type" => "execute", "query" => $query, "time" => $time, "file" => $file_include_name);
    }
 
    //Hàm tính time
@@ -146,10 +145,10 @@ class db_execute_return
 
       global $arrayListQueryOnPage;
       if(!isset($arrayListQueryOnPage)){
-         $arrayListQueryOnPage 	= array();
+         $arrayListQueryOnPage   = array();
       }
 
-      $file_include_name 	= "";
+      $file_include_name   = "";
 
       $dbinit = new db_init();
       $this->links = mysqli_connect($dbinit->server, $dbinit->username, $dbinit->password);
@@ -168,10 +167,10 @@ class db_execute_return
          $last_id = $row["last_id"];
       }
 
-      $time_end	= $this->microtime_float();
-      $time			= $time_end - $time_start;
+      $time_end   = $this->microtime_float();
+      $time       = $time_end - $time_start;
       // Lưu vào list query trên Page
-      $arrayListQueryOnPage[] 	= array("type" => "execute", "query" => $query, "time" => $time, "file" => $file_include_name);
+      $arrayListQueryOnPage[]    = array("type" => "execute", "query" => $query, "time" => $time, "file" => $file_include_name);
 
       mysqli_close($this->links);
 
@@ -183,4 +182,132 @@ class db_execute_return
       list($usec, $sec) = explode(" ", microtime());
       return ((float)$usec + (float)$sec);
    }
+}
+
+// insert update delete table
+// pham tung lam
+class Database
+{
+   public $links;
+   public $tableName;
+   public $primaryKey;
+   public static $where;
+
+   function __construct(){
+
+      $dbinit = new db_init();
+      $this->links = mysqli_connect($dbinit->server, $dbinit->username, $dbinit->password);
+      if(!$this->links){
+         echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">';
+         echo '<meta name="revisit-after" content="1 days">';
+         echo "<center>";
+         echo "Chào bạn, trang web bạn yêu cầu hiện chưa thể thực hiện được. <br>";
+         echo "Xin bạn vui lòng đợi vài giây rồi ấn <b>F5 để Refresh</b> lại trang web <br>";
+         echo "</center>";
+         exit();
+      }
+      mysqli_select_db($this->links,$dbinit->database);
+      unset($dbinit);
+      mysqli_query($this->links,"SET NAMES 'utf8'");
+   }
+
+   public static function where($filter)
+   {
+      $where = '';
+      foreach ($filter as $field => $value){
+         if ($value != ''){
+            $value = addslashes($value);
+            $where .= "AND $field = '$value' ";
+         }
+      }
+      $where = trim($where, 'AND');
+      self::$where .= ' WHERE ' . $where;
+      return new static();
+   }
+
+   public function queryRaw($query){
+
+      $data  = array();
+      $result = mysqli_query($this->links,$query);
+      while ($row = mysqli_fetch_assoc($result)){
+         $data[] = $row;
+      }
+      return $data;
+   }
+
+   public function execute($query){
+
+      if(empty($this->tableName) || empty($this->primaryKey)){
+         return false;
+      }
+      $result = mysqli_query($this->links,$query);
+      self::$where = '';
+      return $result;
+   }
+
+   //
+   function first(){
+
+      $result = $this->execute("SELECT * FROM {$this->tableName}" . self::$where);
+      $data = mysqli_fetch_assoc($result);
+      return $data;
+   }
+
+   //
+   public function get(){
+
+      $data  = array();
+      $result = $this->execute("SELECT * FROM {$this->tableName}" . self::$where);
+      while ($row = mysqli_fetch_assoc($result)){
+         $data[] = $row;
+      }
+      return $data;
+   }
+
+   public function insert($data = array()){
+
+      $fields = '';
+      $values = '';
+      foreach ($data as $field => $value){
+         $fields .= $field .',';
+         $values .= "'".addslashes($value)."',";
+      }
+      $fields = trim($fields, ',');
+      $values = trim($values, ',');
+      $result = $this->execute("INSERT INTO {$this->tableName} ($fields) VALUES ({$values})");
+      return $result;
+   }
+
+   public function update($data = array()){
+
+      $fields = '';
+      foreach ($data as $field => $value){
+        $fields .= $field . "='" . $value . "',";
+      }
+      $fields = trim($fields, ',');
+      $result = $this->execute("UPDATE {$this->tableName} SET {$fields}" . self::$where);
+      return $result;
+   }
+
+   public function increment($field, $qty = 1){
+      $result = $this->execute("UPDATE {$this->tableName} SET $field = $field + $qty" . self::$where);
+      return $result;
+   }
+
+   public function delete(){
+      $result = $this->execute("DELETE FROM {$this->tableName}" . self::$where);
+      return $result;
+   }
+}
+
+class Order_Detail extends Database{
+
+   public $tableName = 'order_detail';
+   public $primaryKey = 'id';
+}
+
+class Order extends Database{
+
+   public $tableName = 'orders';
+   public $primaryKey = 'id';
 }

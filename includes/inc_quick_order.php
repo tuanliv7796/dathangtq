@@ -55,7 +55,13 @@ require_once 'inc_curl.php';
                                 </div>
                             </div>
                         </form>
-                
+                        
+                        <input type="hidden" value="<? echo isset($item_id) ? $item_id : '' ?>" class="item_id">
+                        <input type="hidden" value="<? echo isset($shop_id) ? $shop_id : '' ?>" class="shop_id">
+                        <input type="hidden" value="<? echo isset($shop_name) ? $shop_name : '' ?>" class="shop_name">
+                        <input type="hidden" value="<? echo isset($shop_link) ? $shop_link : '' ?>" class="shop_link">
+                        <input type="hidden" value="" class="property">
+
                         <div id="ContentPlaceHolder1_pn_productview">
                             <? if(isset($html)) { ?>
                             <div class="product-view">
@@ -117,12 +123,6 @@ require_once 'inc_curl.php';
                                 </div>
                                 
                             </div>
-                            
-                            <input type="hidden" value="<? echo isset($item_id) ? $item_id : '' ?>" class="item_id">
-                            <input type="hidden" value="<? echo isset($shop_id) ? $shop_id : '' ?>" class="shop_id">
-                            <input type="hidden" value="<? echo isset($shop_name) ? $shop_name : '' ?>" class="shop_name">
-                            <input type="hidden" value="<? echo isset($shop_link) ? $shop_link : '' ?>" class="shop_link">
-                            <input type="hidden" value="" class="property">
 
                             <? } ?>
                         </div>
@@ -168,9 +168,9 @@ require_once 'inc_curl.php';
             $(this).css("color", "red");
             $('.J_TSaleProp li').not(this).removeAttr('style');
 
-            var val = $(this).find('span').text()
+            var val = $(this).find('span').text();
 
-            $('.property').val(val)
+            $('.property').val(val);
 
         })
     })
@@ -182,19 +182,19 @@ require_once 'inc_curl.php';
             return false;
         }
 
-        var title = $('.tb-main-title').text().trim();
-        var price = $('.tb-rmb-num').text().trim();
+        var title     = $('.tb-main-title').text().trim();
+        var price     = $('.tb-rmb-num').text().trim();
         var price_vnd = $('.vnd').text().trim();
-        var image = $('#J_ImgBooth').attr('src').trim();
-        var link = $('.txt-search-product').val().trim();
-        var cate = $('.cate').val().trim();
-        var comment = $('.comment').val().trim();
-        var site = extractRootDomain(link);
-        var item_id = $('.item_id').val().trim();
-        var shop_id = $('.shop_id').val().trim();
+        var image     = $('#J_ImgBooth').attr('src').trim();
+        var link      = $('.txt-search-product').val().trim();
+        var cate      = $('.cate').val().trim();
+        var comment   = $('.comment').val().trim();
+        var site      = extractRootDomain(link);
+        var item_id   = $('.item_id').val().trim();
+        var shop_id   = $('.shop_id').val().trim();
         var shop_name = $('.shop_name').val().trim();
         var shop_link = $('.shop_link').val().trim();
-        var property = $('.property').val().trim();
+        var property  = $('.property').val().trim();
 
         if(property == '') {
             alert('Vui lòng chọn thuộc tính sản phẩm');
@@ -221,13 +221,15 @@ require_once 'inc_curl.php';
             url: "/home/add_to_cart.php",
             data: {
                 'data' : data,
-                'user_id' : <? echo $_SESSION['id'] ?>
+                'user_id' : <? echo $_SESSION['user_session']['id'] ? $_SESSION['user_session']['id'] : '' ?>
             },
             type: 'POST',
             dataType : 'json',            
             success: function (val) {
                 if(val == 1) {
                     window.location.href = '/gio-hang';
+                } else {
+                    alert('Có lỗi xảy ra')
                 }
             }
         });

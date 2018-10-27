@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
             $title           = mb_convert_encoding($title, 'UTF-8', 'GB2312');
             $tb_rmb_num      = $html->find('.tb-rmb-num',0);
 
-            $attributes_list = $html->find('.attributes-list',0);
+            $attributes_list = $html->find('.J_TSaleProp',0);
             $attributes_list = mb_convert_encoding($attributes_list, 'UTF-8', 'GB2312');
 
             $size            = $html->find('.J_TMySizeProp', 0);
@@ -51,12 +51,16 @@ if(isset($_POST['submit'])) {
             $shop_id         = explode('=', $shop_id[3]);
             $shop_id         = $shop_id[1];
             
-            $shop_name       = $html->find('div.tb-shop-name a',0)->innertext();
-            $shop_name       = mb_convert_encoding($shop_name, 'UTF-8', 'GB2312');
-            
-            $shop_link       = $html->find('div.tb-shop-name a',0);
-            $shop_link       = $shop_link->href;
-            
+            $shop_name       = $html->find('div.tb-shop-name a',0);
+
+            if($shop_name) {
+                $shop_name = $shop_name->innertext();
+                $shop_name       = mb_convert_encoding($shop_name, 'UTF-8', 'GB2312');
+
+                $shop_link       = $html->find('div.tb-shop-name a',0);
+                $shop_link       = $shop_link->href;
+            }
+                        
             $addOrder        = true;
 
         } else {

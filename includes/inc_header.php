@@ -27,7 +27,7 @@
                         <a href="/danh-sach-don-hang" class="m-color">Quản lý đơn hàng</a>
                     </li>
                     <li class="activity-thumb dropdown" style="float:none;">
-                        <a href="/thong-tin-nguoi-dung"><? echo $_SESSION['email'] ?><i class="arrow fa fa-caret-down m-color"></i></a>
+                        <a href="/thong-tin-nguoi-dung"><? echo $_SESSION['user_session']['email'] ?><i class="arrow fa fa-caret-down m-color"></i></a>
                         <div class="sub-menu-wrap">
                             <ul class="sub-menu">
                                 <li>
@@ -128,6 +128,11 @@ $current_page = PageName();
                     
                     <? if(isset($_SESSION['user_session']) && $_SESSION['user_session'] !== false) { ?>
                     <li class="giohang <? echo $current_page == 'cart.php' ? 'active': '' ?>"><a href="/gio-hang">GIỎ HÀNG</a></li>
+                    <? } ?>
+
+                    <? if(isset($_SESSION['orders']['id'])) { ?>
+                    <li class="thanhtoan <? echo $current_page == 'pay.php' ? 'active': '' ?>"><a href="/thanh-toan">PAY</a></li>
+                    <li class="danhsachdonhang <? echo $current_page == 'list_order.php' ? 'active': '' ?>"><a href="/danh-sach-don-hang">DANH SÁCH ĐƠN HÀNG</a></li>
                     <? } ?>
 
                 </ul>

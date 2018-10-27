@@ -95,9 +95,19 @@ unset($db_count);
          							LIMIT " . ($current_page-1) * $page_size . "," . $page_size,
 										__FILE__);*/
 
-$db_listing = new db_query("SELECT * FROM cart 
-							JOIN cart_detail ON cart.id = cart_detail.cart_id
-							JOIN categories ON cart_detail.cate_id = categories.id");
+$db_listing = new db_query("SELECT order_detail.*, categories.name as cate_name FROM orders 
+							JOIN order_detail ON orders.id = order_detail.order_id
+							JOIN categories ON order_detail.cate_id = categories.id");
+
+$status = new db_query("SELECT * FROM status");
+
+$list_status = [];
+$i = 0;
+while($val = mysqli_fetch_assoc($status->result)) {
+	$list_status[$i]['id'] = $val['id'];
+	$list_status[$i]['name'] = $val['name'];
+	$i++;
+}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -211,13 +221,14 @@ $db_listing = new db_query("SELECT * FROM cart
 					<td class="h" width="3%">STT</td>
 					<td class="h" width="5%">Ảnh</td>
 					<td class="h" width="5%">Mã SP</td>
-					<td class="h" width="10%">Tên SP</td>
+					<td class="h" width="15%">Tên SP</td>
 					<td class="h" width="10%">Danh mục</td>
 					<td class="h" width="10%">Site</td>
 					<td class="h" width="10%">Shop</td>
-					<td class="h" width="10%">Giá</td>
-					<td class="h" width="10%">Số lượng</td>
-					<td class="h" width="10%">Ghi chú</td>
+					<td class="h" width="8%">Giá</td>
+					<td class="h" width="5%">Phí ship</td>
+					<td class="h" width="7%">Số lượng</td>
+					<td class="h" width="15%">Ghi chú</td>
 					<td class="h" width="10%">Trạng thái</td>
 					<td class="h" width="7%">#</td>
 				</tr>
@@ -240,7 +251,7 @@ $db_listing = new db_query("SELECT * FROM cart
 						<a href="<? echo $row['link_origin'] ?>" target="_blank"><? echo $row['title_origin'] ?></a>
 					</td>
 					<td>
-						<? echo $row['name'] ?>
+						<? echo $row['cate_name'] ?>
 					</td>
 					<td>
 						<? echo $row['site'] ?>
@@ -252,16 +263,21 @@ $db_listing = new db_query("SELECT * FROM cart
 						<? echo $row['price_vnd'] ?>
 					</td>
 					<td>
+						<input type="text" value="<? echo $row['price_ship'] ?>" onkeyup="update_price_ship(this, event)"/>
+					</td>
+					<td>
 						<? echo $row['quantity'] ?>
 					</td>
               		<td>
               			<? echo $row['comment'] ?>
               		</td>
               		<td>
-              			<select name="status" class="form-control status">
-              				<option value="1" <? echo $row['status'] == 1 ? "selected='selected'" : '' ?>>Đang đóng gói</option>
-              				<option value="2" <? echo $row['status'] == 2 ? "selected='selected'" : '' ?>>Đang vận chuyển</option>
-              				<option value="3" <? echo $row['status'] == 3 ? "selected='selected'" : '' ?>>Đang đi giao</option>
+              			<select name="status" class="form-control" onchange="change_status(this)">
+								
+							<? foreach($list_status as $val): ?>
+              				<option value="<? echo $val['id'] ?>" <? echo $row['status'] == $val['id'] ? "selected='selected'" : '' ?>><? echo $val['name'] ?></option>
+							<? endforeach; ?>
+
               			</select>
               		</td>
               		<td>
@@ -290,33 +306,56 @@ $db_listing = new db_query("SELECT * FROM cart
 <? unset($db_listing); ?>
 <script type="text/javascript">
 
-$(document).ready(function(){
-	$('.status').change(function(){
-		var status = $(this).val()
-		var id = $(this).parents('tr').attr('data-id')
+function change_status(_this) {
+	var status = $(_this).val()
+	var id = $(_this).parents('tr').attr('data-id')
+
+	$.ajax({
+        url: "/ajax/ajax_update_status.php",
+        data: {
+            'status' : status,
+            'id' : id
+        },
+        type: 'POST',
+        dataType : 'json',            
+        success: function (val) {
+            if(val == 1) {
+                console.log('ok')
+            } else {
+            	alert('không thành công');
+            }
+        }
+    });
+}
+
+function update_price_ship(_this, e) {
+
+	e.preventDefault()
+
+	if (e.keyCode === 13) { 
+
+		var price_ship = $(_this).val()
+		var id = $(_this).parents('tr').attr('data-id')
 
 		$.ajax({
-            url: "/ajax/ajax_update_status.php",
-            data: {
-                'status' : status,
-                'id' : id
-            },
-            type: 'POST',
-            dataType : 'json',            
-            success: function (val) {
-                if(val == 1) {
-                    console.log('ok')
-                } else {
-                	alert('không thành công');
-                }
-            }
-        });
-	})
-})
+	        url: "/ajax/ajax_update_price_ship.php",
+	        data: {
+	            'price_ship' : price_ship,
+	            'id' : id
+	        },
+	        type: 'POST',
+	        dataType : 'json',            
+	        success: function (val) {
+	            if(val == 1) {
+	                console.log('ok')
+	            } else {
+	            	alert('không thành công');
+	            }
+	        }
+	    });
+	}
 
-
-
-
+}
 
 function bot_cancel(id){
 	if(id){

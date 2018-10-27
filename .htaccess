@@ -56,8 +56,11 @@ RewriteRule ^add-to-cart$ /home/add_to_cart.php [L]
 #giohang
 RewriteRule ^gio-hang$ /home/cart.php [L]
 
-#giohang
+#thanhtoan
 RewriteRule ^thanh-toan$ /home/pay.php [L]
+
+#danhsachdonhang
+RewriteRule ^danh-sach-don-hang$ /home/list_order.php [L]
 
 #HOME
 RewriteRule ^([^/]*)$ /home/index.php [L]
