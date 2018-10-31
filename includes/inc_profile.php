@@ -7,7 +7,7 @@ if(isset($_SESSION['message'])) {
 require_once("../classes/database.php");
 require_once("../functions/functions.php");
 
-$id = $_SESSION['id'];
+$id = $_SESSION['user_session']['id'];
 
 $sql = ("SELECT last_name, first_name, prefix_phone, phone, email, user_name FROM user WHERE id = ". $id);
 

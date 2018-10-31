@@ -12,6 +12,7 @@ if(!empty($_SESSION["user_session"])){
 	$order_detail = $order_detail->queryRaw($sql);
 
 	if(isset($order_detail) && !empty($order_detail)) {
+		$_SESSION['orders']['count'] = count($order_detail);
 		$_SESSION['orders']['id'] = $order_detail[0]['order_id'];
 	}
 

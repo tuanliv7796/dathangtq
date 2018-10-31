@@ -1,9 +1,17 @@
+<?php
+
+require "./../api/GetExchangeRate.php";
+
+$rate = getRate();
+
+?>
+
 <header id="header">
     <div class="top-hd">
         <div class="all full-width-no-limit">
             <div class="main">
                 <div class="left">
-                    <a href="javascript:;" class="contact-link">Tỷ giá: 1<i class="fa fa-yen" style="margin-right:0"></i> = 3,560</a><a
+                    <a href="javascript:;" class="contact-link">Tỷ giá: 1<i class="fa fa-yen" style="margin-right:0"></i> = <? echo isset($rate) ? number_format($rate) : '0' ?></a><a
                         href="mailto:admin@nhaphangsieutoc.com" class="contact-link"><i class="fa fa-envelope"></i>admin@nhaphangsieutoc.com</a>
                 </div>
                 <div class="right">
@@ -21,7 +29,13 @@
                         <a href="javascript:;" onclick="setfullisread()"><i class="fa fa-bell"></i><span class="lbl">Thông báo</span> &nbsp;<span class="notifications m-color">(0)</span></a>
                     </li>
                     <li>
-                        <a href="/gio-hang"><i class="fa fa-shopping-cart"></i>&nbsp;<span class="lbl">Giỏ hàng </span><span class="products-in-cart m-color">(0)</span></a>
+                        <a href="/gio-hang">
+                            <i class="fa fa-shopping-cart"></i>&nbsp;
+                            <span class="lbl">Giỏ hàng </span>
+                            <span class="products-in-cart m-color">
+                                (<? echo isset($_SESSION['orders']['count']) ? $_SESSION['orders']['count'] : '0' ?>)
+                            </span>
+                        </a>
                     </li>
                     <li>
                         <a href="/danh-sach-don-hang" class="m-color">Quản lý đơn hàng</a>

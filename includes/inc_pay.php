@@ -4,6 +4,10 @@ if(isset($_SESSION['message'])) {
     unset($_SESSION['message']);
 }
 
+if(isset($_SESSION['orders']['count'])) {
+    unset($_SESSION['orders']['count']);
+}
+
 require_once("../classes/database.php");
 require_once("../functions/functions.php");
 

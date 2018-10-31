@@ -50,7 +50,7 @@ if(!empty($_SESSION["user_session"])){
                                     <tr>
                                         <th rowspan="4">Trong đó:</th>
                                         <td><b class="m-color">
-                                            3</b> đơn hàng chưa đặt cọc.
+                                            0</b> đơn hàng chưa đặt cọc.
                                         </td>
                                         <td><b class="m-color">
                                             0</b> đơn hàng đã đặt cọc.
@@ -90,8 +90,7 @@ if(!empty($_SESSION["user_session"])){
                                     <tr>
                                         <td>Tổng tiền hàng cần đặt cọc: </td>
                                         <td>
-                                            5.594.445
-                                            VNĐ
+                                            chờ cập nhật
                                         </td>
                                         <td></td>
                                     </tr>

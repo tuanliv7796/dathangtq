@@ -91,7 +91,7 @@ require_once 'inc_curl.php';
 
                                                 $tb_rmb_num = (int) preg_replace("/[^0-9\.]/", "", $tb_rmb_num);
 
-                                                $vnd = $tb_rmb_num * 3560; 
+                                                $vnd = $tb_rmb_num * $rate; 
 
                                             ?> 
 
